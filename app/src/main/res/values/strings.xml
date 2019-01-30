@@ -4,4 +4,6 @@
     <string name="title">Welcome</string>
     <string name="hint_name">Enter your name</string>
     <string name="btn_name">Show name</string>
+    <string name="Enter3chars">Enter atleast 3 characters</string>
+    <string name="enterName">Enter the name</string>
 </resources>

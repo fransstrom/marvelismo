@@ -1,11 +1,16 @@
 package com.mrpwr.marvelismo
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.ListAdapter
 import android.widget.Toast
+import com.mrpwr.marvelismo.API.Hero
 import com.mrpwr.marvelismo.API.HeroResponse
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
@@ -20,74 +25,101 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 import java.lang.StringBuilder
 import java.security.MessageDigest
+import android.content.Intent
+import android.view.View
+import android.widget.EditText
+import kotlinx.android.synthetic.main.hero_search_activity.*
 
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val apiCredParams = MD5Hash()
 
-        val retroFit = Retrofit.Builder()
-            .baseUrl("https://gateway.marvel.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-
-
-
+//        val retroFit = Retrofit.Builder()
+//            .baseUrl("https://gateway.marvel.com")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//            .build()
+//
+//        var apiCredParams = MD5Hash()
+//        val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
+//        var heroAdapter: ArrayAdapter<String>
 
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-            println("HASCH!   " + apiCredParams.hash)
-
-            val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
-
-            val call = service.getHeroes(apiCredParams.apikey, apiCredParams.hash, "spider", apiCredParams.ts)
-
-            call.enqueue(object : Callback<HeroResponse> {
-                override fun onFailure(call: Call<HeroResponse>, t: Throwable) {
-                    Toast.makeText(applicationContext, "failed", Toast.LENGTH_LONG).show()
-                }
-
-                override fun onResponse(call: Call<HeroResponse>, response: Response<HeroResponse>) {
-                    val body=response.body()
-                   var result=body?.result
-
-                    println(result?.heroes?.get(3))
-                }
-
-            })
 
 
-
-//           var call= apiHeroes.getHeroes(apiCredParams.apikey, apiCredParams.hash, "spider", apiCredParams.ts)
-//
-//
-//                .subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//                    println(it.data.heroes)
-//                }, {
-//                println("VA!")
-//                })
         }
 
-        var text = enterNameEdt.text
+
 
         showNameBtn.setOnClickListener {
-            if (text.isEmpty()) {
-                resultTxt.text = "Enter name"
+            startActivity(Intent(this@MainActivity, HeroSearchActivity::class.java))
+            val editText = findViewById<EditText>(R.id.enterNameEdt)
+            val message = editText.text.toString()
+            val intent = Intent(this, HeroSearchActivity::class.java).apply {
+                putExtra("SEARCH_VALUE", message)
             }
-            resultTxt.text = "Welcome " + text
+            startActivity(intent)
+
+
+//            val search = enterNameEdt.text
+//            if (search.isEmpty() || search.length < 3) {
+//              //  resultTxt.text = getString(R.string.Enter3chars)
+//            } else {
+//                service.getHeroesObserv(apiCredParams.apikey, apiCredParams.hash, search.toString(), apiCredParams.ts)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .unsubscribeOn(Schedulers.io())
+//                    .subscribe({
+//                        val heroes = it.result.heroes
+//                        println(heroes)
+////                        var showString: String? = null
+//                        if (heroes.size > 0) {
+////                            showString = "Welcome " + heroes.get(0).name
+////                            resultTxt.text = showString
+//                            var heroNames: MutableList<String> = ArrayList()
+//
+//                            for(hero in heroes){
+//                                heroNames.add(hero.name)
+//                            }
+//
+//                            heroAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, heroNames)
+//                            hero_list.adapter = heroAdapter
+//                        }
+//                    }, {
+//
+//                    })
+
+
+// FUNKAR BRA MEN OBSERVABLE ÄR SNABBARE
+//                call.clone().enqueue(object : Callback<HeroResponse> {
+//                    override fun onFailure(call: Call<HeroResponse>, t: Throwable) {
+//                        Toast.makeText(applicationContext, "failed", Toast.LENGTH_LONG).show()
+//                    }
+//
+//                    override fun onResponse(call: Call<HeroResponse>, response: Response<HeroResponse>) {
+//                        val body = response.body()
+//                        var result = body?.result
+//                        var heroes = result?.heroes
+//                        println(heroes)
+//                        var showString: String? = null
+//                        if (heroes?.size!! > 0) {
+//                            showString = "Welcome " + result?.heroes?.get(0)?.name
+//                            resultTxt.text = showString
+//                        }
+//                    }
+//                })
+            //      }
         }
 
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -22,4 +22,15 @@ interface MarvelSevice {
         @Query("nameStartsWith") nameStartsWith: String,
         @Query("ts")ts:String
     ): Call<HeroResponse>
+
+
+
+
+    @GET("/v1/public/characters")
+    fun getHeroesObserv(
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("nameStartsWith") nameStartsWith: String,
+        @Query("ts")ts:String
+    ): Observable<HeroResponse>
 }
