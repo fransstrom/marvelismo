@@ -10,9 +10,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mrpwr.marvelismo.API.Hero
 import com.mrpwr.marvelismo.R
-import java.net.URI
 
-class HeroListAdapter(private val list: ArrayList<Hero>, private val context: Context) :
+import java.net.URI
+import com.squareup.picasso.Picasso
+
+
+
+
+class HeroListAdapter( val list: ArrayList<Hero>,  val context: Context) :
     RecyclerView.Adapter<HeroListAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -26,10 +31,14 @@ class HeroListAdapter(private val list: ArrayList<Hero>, private val context: Co
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(list[position])
+        val url=list[position].thumbnail.path+"."+list[position].thumbnail.extension
+        Picasso.get().load(url).resize(250, 250).centerCrop().into(holder.itemView.findViewById(R.id.picView) as ImageView)
     }
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
         fun bindItem(hero: Hero) {
             var name: TextView = itemView.findViewById(R.id.heroName) as TextView
             var id: TextView = itemView.findViewById(R.id.heroId) as TextView
@@ -37,7 +46,14 @@ class HeroListAdapter(private val list: ArrayList<Hero>, private val context: Co
             name.text=hero.name
             id.text= hero.id.toString()
         }
+
+
+
     }
+
+
+
+
 
 
 }

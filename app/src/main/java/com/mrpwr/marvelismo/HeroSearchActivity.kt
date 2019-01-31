@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.mrpwr.marvelismo.API.Hero
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
@@ -71,15 +72,15 @@ class HeroSearchActivity : AppCompatActivity(){
                 val heroes = it.result.heroes
                 println(heroes)
                 if (heroes.size > 0) {
-
                     layoutManager=LinearLayoutManager(this)
                     adapter=HeroListAdapter(heroes,this)
-
                     recyclerView.layoutManager=layoutManager
                     recyclerView.adapter=adapter
-
                     adapter!!.notifyDataSetChanged()
+                    Toast.makeText(this,heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
                 }
+
+
             }, {
 
             })
