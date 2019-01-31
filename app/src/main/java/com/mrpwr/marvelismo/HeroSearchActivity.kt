@@ -24,9 +24,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HeroSearchActivity : AppCompatActivity(){
-    var adapter:HeroListAdapter?=null
-    private var layoutManager:RecyclerView.LayoutManager?=null
+class HeroSearchActivity : AppCompatActivity() {
+    var adapter: HeroListAdapter? = null
+    private var layoutManager: RecyclerView.LayoutManager? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,12 +41,15 @@ class HeroSearchActivity : AppCompatActivity(){
 
 
         goBack.setOnClickListener { view ->
-    startActivity(Intent(this, MainActivity::class.java))
-
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
 
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     @SuppressLint("CheckResult")
@@ -72,12 +75,12 @@ class HeroSearchActivity : AppCompatActivity(){
                 val heroes = it.result.heroes
                 println(heroes)
                 if (heroes.size > 0) {
-                    layoutManager=LinearLayoutManager(this)
-                    adapter=HeroListAdapter(heroes,this)
-                    recyclerView.layoutManager=layoutManager
-                    recyclerView.adapter=adapter
+                    layoutManager = LinearLayoutManager(this)
+                    adapter = HeroListAdapter(heroes, this)
+                    recyclerView.layoutManager = layoutManager
+                    recyclerView.adapter = adapter
                     adapter!!.notifyDataSetChanged()
-                    Toast.makeText(this,heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
                 }
 
 
