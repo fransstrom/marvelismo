@@ -77,8 +77,9 @@ class HeroSearchActivity : AppCompatActivity(){
                     recyclerView.layoutManager=layoutManager
                     recyclerView.adapter=adapter
                     adapter!!.notifyDataSetChanged()
+                    Toast.makeText(this,heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
                 }
-           Toast.makeText(this,heroes.size.toString() + "heroes found", Toast.LENGTH_LONG)
+
 
             }, {
 
