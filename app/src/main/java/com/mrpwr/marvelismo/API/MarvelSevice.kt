@@ -33,4 +33,15 @@ interface MarvelSevice {
         @Query("nameStartsWith") nameStartsWith: String,
         @Query("ts")ts:String
     ): Observable<HeroResponse>
+
+
+
+
+    @GET("/v1/public/comics")
+    fun getComicsObserv(
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("titleStartsWith") nameStartsWith: String,
+        @Query("ts")ts:String
+    ): Observable<ComicResponse>
 }
