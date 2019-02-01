@@ -33,4 +33,14 @@ interface MarvelSevice {
         @Query("nameStartsWith") nameStartsWith: String,
         @Query("ts")ts:String
     ): Observable<HeroResponse>
+
+
+    @GET("/v1/public/characters/{characterId}")
+    fun getHero(
+        @Path("characterId") characterId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts")ts:String
+    ): Observable<HeroResponse>
+
 }

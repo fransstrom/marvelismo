@@ -18,17 +18,19 @@ import com.mrpwr.marvelismo.ui.herosearch.HeroSearchFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_hero_view.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.hero_search_activity.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HeroSearchActivity : AppCompatActivity(){
-    var adapter:HeroListAdapter?=null
-    private var layoutManager:RecyclerView.LayoutManager?=null
+class HeroSearchActivity : AppCompatActivity() {
+    var adapter: HeroListAdapter? = null
+    private var layoutManager: RecyclerView.LayoutManager? = null
 
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hero_search_activity)
@@ -38,21 +40,9 @@ class HeroSearchActivity : AppCompatActivity(){
                 .commitNow()
         }
 
-
-
-        goBack.setOnClickListener { view ->
-    startActivity(Intent(this, MainActivity::class.java))
-
-        }
-
-
-
-    }
-
-    @SuppressLint("CheckResult")
-    override fun onResume() {
-        super.onResume()
-
+//        goBack.setOnClickListener { view ->
+//            startActivity(Intent(this, MainActivity::class.java))
+//        }
 
         val message = intent.getStringExtra("SEARCH_VALUE")
         println(message)
@@ -62,6 +52,7 @@ class HeroSearchActivity : AppCompatActivity(){
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
+
         var apiCredParams = MD5Hash()
 
         service.getHeroesObserv(apiCredParams.apikey, apiCredParams.hash, message, apiCredParams.ts)
@@ -72,18 +63,27 @@ class HeroSearchActivity : AppCompatActivity(){
                 val heroes = it.result.heroes
                 println(heroes)
                 if (heroes.size > 0) {
-                    layoutManager=LinearLayoutManager(this)
-                    adapter=HeroListAdapter(heroes,this)
-                    recyclerView.layoutManager=layoutManager
-                    recyclerView.adapter=adapter
+                    layoutManager = LinearLayoutManager(this)
+                    adapter = HeroListAdapter(heroes, this)
+                    recyclerView.layoutManager = layoutManager
+                    recyclerView.adapter = adapter
                     adapter!!.notifyDataSetChanged()
-                    Toast.makeText(this,heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
+
                 }
 
 
             }, {
 
             })
+
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
 

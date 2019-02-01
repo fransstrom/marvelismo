@@ -13,27 +13,21 @@
             android:layout_height="57dp"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/enterNameEdt"
+            android:id="@+id/enterHeroName"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:hint="@string/hint_name"
+            android:hint="@string/enter_hero_name"
             android:autofillHints=""
-            app:layout_constraintBottom_toTopOf="@+id/hero_list" android:layout_marginBottom="8dp"/>
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     <Button
-            android:text="@string/btn_name"
+            android:text="@string/search"
             android:layout_width="179dp"
             android:layout_height="54dp"
             android:id="@+id/showNameBtn"
             android:background="@color/colorAccent" android:textColor="#FFFFFF" android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/enterNameEdt"
+            app:layout_constraintStart_toEndOf="@+id/enterHeroName"
             android:layout_marginStart="8dp" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/hero_list"/>
-    <ListView
-            android:layout_width="387dp"
-            android:layout_height="407dp"
-            android:id="@+id/hero_list"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="110dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>
