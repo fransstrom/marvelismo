@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
 
         showNameBtn.setOnClickListener {
-            startActivity(Intent(this@MainActivity, HeroSearchActivity::class.java))
+            //startActivity(Intent(this@MainActivity, HeroSearchActivity::class.java))
             val editText = findViewById<EditText>(R.id.enterHeroName)
             val message = editText.text.toString()
             val intent = Intent(this, HeroSearchActivity::class.java).apply {
@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity() {
         return result.toString().toLowerCase()
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will

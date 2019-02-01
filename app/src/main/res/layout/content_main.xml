@@ -18,7 +18,8 @@
             app:layout_constraintStart_toStartOf="parent"
             android:hint="@string/enter_hero_name"
             android:autofillHints=""
-            tools:layout_editor_absoluteY="45dp"/>
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     <Button
             android:text="@string/search"
             android:layout_width="179dp"
@@ -27,5 +28,6 @@
             android:background="@color/colorAccent" android:textColor="#FFFFFF" android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/enterHeroName"
             android:layout_marginStart="8dp" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="48dp"/>
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>
