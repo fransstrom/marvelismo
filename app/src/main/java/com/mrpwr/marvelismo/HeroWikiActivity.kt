@@ -15,28 +15,31 @@ class HeroWikiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_wiki)
 
-      var webView:WebView=findViewById(R.id.heroWikiWeb)
+        val url: String = intent.getStringExtra("WIKI_URL")
+
+        var webView: WebView = findViewById(R.id.heroWikiWeb)
         webView.webViewClient = WebViewClient()
         webView.settings.javaScriptEnabled = true
         webView.settings.loadWithOverviewMode = true
         webView.settings.useWideViewPort = true
-       webView.settings.setSupportZoom(true)
+        webView.settings.setSupportZoom(true)
         webView.settings.builtInZoomControls = false
         webView.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
         webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
         webView.settings.domStorageEnabled = true
-        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        webView.setScrollbarFadingEnabled(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        webView.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
+        webView.isScrollbarFadingEnabled = true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         } else {
-            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         }
 
 
-
-        val url:String= intent.getStringExtra("WIKI_URL")
+        println("WIKIURL! "+url)
 
         webView.loadUrl(url)
     }
+
+
 }

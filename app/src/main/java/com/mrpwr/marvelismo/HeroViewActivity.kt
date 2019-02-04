@@ -26,10 +26,7 @@ class HeroViewActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
-
-
         val message:String = intent.getStringExtra("HERO_ID")
-        println(message.toString() + "FROM HERO VIEW")
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
             .addConverterFactory(GsonConverterFactory.create())
@@ -59,7 +56,7 @@ class HeroViewActivity : AppCompatActivity() {
                     val wikiUrl:String=wikiObj[0].url
 
 
-                        println("WIKIURL:::: "+wikiUrl)
+
 
                     val wikiWebIntent:Intent=Intent(this, HeroWikiActivity::class.java)
                     wikiWebIntent.putExtra("WIKI_URL",wikiUrl)
