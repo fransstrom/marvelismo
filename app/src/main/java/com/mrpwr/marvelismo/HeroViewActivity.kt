@@ -61,7 +61,7 @@ class HeroViewActivity : AppCompatActivity() {
 
                     println("Wikiobj from herovie " + (wikiUrl))
 
-                    if (!(wikiUrl==="null")) {
+                    if (!(wikiUrl === "null")) {
                         wikiWebIntent.putExtra("WIKI_URL", wikiUrl)
                         heroWikiBtn.setOnClickListener {
                             startActivity(wikiWebIntent)

@@ -36,7 +36,7 @@ class HeroWikiActivity : AppCompatActivity() {
             webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         }
 
-        webView!!.webViewClient = object : WebViewClient() {
+        webView.webViewClient = object : WebViewClient() {
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
@@ -47,8 +47,6 @@ class HeroWikiActivity : AppCompatActivity() {
                 super.onPageFinished(view, url)
                 webProgreesBar.visibility=WebView.INVISIBLE
             }
-
-
         }
 
 
