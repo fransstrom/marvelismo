@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.Toast
 import com.mrpwr.marvelismo.API.MD5Hash
@@ -34,47 +36,8 @@ class HeroSearchActivity : AppCompatActivity() {
                 .commitNow()
         }
 
-//        goBack.setOnClickListener { view ->
-//            startActivity(Intent(this, MainActivity::class.java))
-//        }
 
-//        val message = intent.getStringExtra("SEARCH_VALUE")
-//        println(message)
-//        val retroFit = Retrofit.Builder()
-//            .baseUrl("https://gateway.marvel.com")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//            .build()
-//        val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
-//
-//        var apiCredParams = MD5Hash()
-//
-//        service.getHeroesObserv(apiCredParams.apikey, apiCredParams.hash, message, apiCredParams.ts)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .unsubscribeOn(Schedulers.io())
-//            .subscribe({
-//                val heroes = it.result.heroes
-//                println(heroes)
-//                if (heroes.size > 0) {
-//                    layoutManager = LinearLayoutManager(this)
-//                    adapter = HeroListAdapter(heroes, this)
-//                    recyclerView.layoutManager = layoutManager
-//                    recyclerView.adapter = adapter
-//                    adapter!!.notifyDataSetChanged()
-//                    Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
-//
-//                }
-//
-//
-//            }, {
-//
-//            })
-//
-//        heroSearchView.setOnSearchClickListener {
-//
-//            println("ths click")
-//        }
+        heroSearchProgressBar.visibility= View.INVISIBLE
 
 
         val searchView: SearchView = this.findViewById(R.id.heroSearchView) as SearchView
@@ -89,23 +52,17 @@ class HeroSearchActivity : AppCompatActivity() {
                 searchHeros(query)
                 return true
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 //              if (searchView.isExpanded() && TextUtils.isEmpty(newText)) {
                 //   callSearch(newText)
                 //              }
-
-
                 return true
             }
 
             fun callSearch(query: String) {
                 //Do searching
             }
-
         })
-
-
     }
 
 
@@ -117,7 +74,7 @@ class HeroSearchActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     fun searchHeros(query: String) {
-
+        heroSearchProgressBar.visibility= View.VISIBLE
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
             .addConverterFactory(GsonConverterFactory.create())
@@ -141,7 +98,7 @@ class HeroSearchActivity : AppCompatActivity() {
                     recyclerView.adapter = adapter
                     adapter!!.notifyDataSetChanged()
                     Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
-
+                    heroSearchProgressBar.visibility= View.INVISIBLE
                 }
 
 

@@ -1,5 +1,6 @@
 package com.mrpwr.marvelismo
 
+import android.graphics.Bitmap
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -33,6 +34,19 @@ class HeroWikiActivity : AppCompatActivity() {
             webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         } else {
             webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        }
+
+        webView.webViewClient = object : WebViewClient() {
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                webProgreesBar.visibility=WebView.VISIBLE
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                webProgreesBar.visibility=WebView.INVISIBLE
+            }
         }
 
 
