@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.Toast
 import com.mrpwr.marvelismo.API.MD5Hash
@@ -33,6 +35,11 @@ class HeroSearchActivity : AppCompatActivity() {
                 .replace(R.id.container, HeroSearchFragment.newInstance())
                 .commitNow()
         }
+
+      //  val sprinner:ProgressBar=findViewById(R.id.heroSearchProgressBar)
+
+        heroSearchProgressBar.visibility= View.INVISIBLE
+
 
 //        goBack.setOnClickListener { view ->
 //            startActivity(Intent(this, MainActivity::class.java))
@@ -117,7 +124,7 @@ class HeroSearchActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     fun searchHeros(query: String) {
-
+        heroSearchProgressBar.visibility= View.VISIBLE
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
             .addConverterFactory(GsonConverterFactory.create())
@@ -141,7 +148,7 @@ class HeroSearchActivity : AppCompatActivity() {
                     recyclerView.adapter = adapter
                     adapter!!.notifyDataSetChanged()
                     Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
-
+                    heroSearchProgressBar.visibility= View.INVISIBLE
                 }
 
 
