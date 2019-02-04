@@ -22,18 +22,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
-        showNameBtn.setOnClickListener {
-            //startActivity(Intent(this@MainActivity, HeroSearchActivity::class.java))
-            val editText = findViewById<EditText>(R.id.enterHeroName)
-            val message = editText.text.toString()
-            val intent = Intent(this, HeroSearchActivity::class.java).apply {
-                putExtra("SEARCH_VALUE", message)
-            }
+        heroSearchActivityBtn.setOnClickListener {
+            val intent = Intent(this, HeroSearchActivity::class.java)
             startActivity(intent)
-
-
         }
-
     }
 
 
