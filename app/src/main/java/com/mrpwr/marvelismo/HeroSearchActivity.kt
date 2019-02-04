@@ -36,52 +36,8 @@ class HeroSearchActivity : AppCompatActivity() {
                 .commitNow()
         }
 
-      //  val sprinner:ProgressBar=findViewById(R.id.heroSearchProgressBar)
 
         heroSearchProgressBar.visibility= View.INVISIBLE
-
-
-//        goBack.setOnClickListener { view ->
-//            startActivity(Intent(this, MainActivity::class.java))
-//        }
-
-//        val message = intent.getStringExtra("SEARCH_VALUE")
-//        println(message)
-//        val retroFit = Retrofit.Builder()
-//            .baseUrl("https://gateway.marvel.com")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//            .build()
-//        val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
-//
-//        var apiCredParams = MD5Hash()
-//
-//        service.getHeroesObserv(apiCredParams.apikey, apiCredParams.hash, message, apiCredParams.ts)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .unsubscribeOn(Schedulers.io())
-//            .subscribe({
-//                val heroes = it.result.heroes
-//                println(heroes)
-//                if (heroes.size > 0) {
-//                    layoutManager = LinearLayoutManager(this)
-//                    adapter = HeroListAdapter(heroes, this)
-//                    recyclerView.layoutManager = layoutManager
-//                    recyclerView.adapter = adapter
-//                    adapter!!.notifyDataSetChanged()
-//                    Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
-//
-//                }
-//
-//
-//            }, {
-//
-//            })
-//
-//        heroSearchView.setOnSearchClickListener {
-//
-//            println("ths click")
-//        }
 
 
         val searchView: SearchView = this.findViewById(R.id.heroSearchView) as SearchView
@@ -96,23 +52,17 @@ class HeroSearchActivity : AppCompatActivity() {
                 searchHeros(query)
                 return true
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 //              if (searchView.isExpanded() && TextUtils.isEmpty(newText)) {
                 //   callSearch(newText)
                 //              }
-
-
                 return true
             }
 
             fun callSearch(query: String) {
                 //Do searching
             }
-
         })
-
-
     }
 
 
