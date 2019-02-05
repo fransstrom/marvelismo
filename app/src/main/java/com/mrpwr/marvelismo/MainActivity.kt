@@ -23,9 +23,14 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        heroSearchActivityBtn.setOnClickListener {
-
+        heroSearchActivityBtn2.setOnClickListener {
             val intent = Intent(this, HeroSearchActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        searchComicsBtn.setOnClickListener {
+            val intent = Intent(this, ComicSearchActivity3::class.java)
             startActivity(intent)
         }
     }
