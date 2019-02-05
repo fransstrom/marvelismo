@@ -2,33 +2,15 @@ package com.mrpwr.marvelismo
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.ListAdapter
-import android.widget.Toast
-import com.mrpwr.marvelismo.API.Hero
-import com.mrpwr.marvelismo.API.HeroResponse
-import com.mrpwr.marvelismo.API.MD5Hash
-import com.mrpwr.marvelismo.API.MarvelSevice
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import retrofit2.*
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 import java.lang.StringBuilder
-import java.security.MessageDigest
 import android.content.Intent
-import android.view.View
 import android.widget.EditText
-import kotlinx.android.synthetic.main.hero_search_activity.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,41 +22,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
-//        val retroFit = Retrofit.Builder()
-//            .baseUrl("https://gateway.marvel.com")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//            .build()
-//
-//        var apiCredParams = MD5Hash()
-//        val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
-//        var heroAdapter: ArrayAdapter<String>
 
-
-        fab.setOnClickListener { view ->
-
-
-        }
-
-
-
-
-        button.setOnClickListener {
-            val intent = Intent(this, ComicSearchActivity3::class.java )
+        heroSearchActivityBtn.setOnClickListener {
+            val intent = Intent(this, HeroSearchActivity::class.java)
             startActivity(intent)
         }
-
-
-        showNameBtn.setOnClickListener {
-            startActivity(Intent(this@MainActivity, HeroSearchActivity::class.java))
-            val editText = findViewById<EditText>(R.id.enterNameEdt)
-            val message = editText.text.toString()
-            val intent = Intent(this, HeroSearchActivity::class.java).apply {
-                putExtra("SEARCH_VALUE", message)
-            }
-            startActivity(intent)
-        }
-
     }
 
 
@@ -95,6 +47,9 @@ class MainActivity : AppCompatActivity() {
         return result.toString().toLowerCase()
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
