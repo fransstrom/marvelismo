@@ -18,7 +18,7 @@ class ComicListAdapter(private val list: ArrayList<Comic>, private val context: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.list_row, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.list_row_comic, parent, false)
         return ViewHolder(view)
     }
 
@@ -30,8 +30,7 @@ class ComicListAdapter(private val list: ArrayList<Comic>, private val context: 
         fun bindItem(comic: Comic) {
             var title: TextView = itemView.findViewById(R.id.comicTitle) as TextView
             var id: TextView = itemView.findViewById(R.id.comicId) as TextView
-
-//            var pic : ImageView = itemView.findViewById(R.id.picView) as ImageView
+//            var pic : ImageView = itemView.findViewById(R.id.ComicView) as ImageView
 
             title.text = comic.title
             id.text = comic.id.toString()

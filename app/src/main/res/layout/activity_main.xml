@@ -21,7 +21,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <!-- För att hämta info från content_main.xml -->
     <include layout="@layout/content_main"/>
+
+    <!--<include layout="@layout/"/>-->
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

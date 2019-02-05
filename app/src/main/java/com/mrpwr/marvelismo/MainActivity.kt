@@ -58,6 +58,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+        button.setOnClickListener {
+            val intent = Intent(this, ComicSearchActivity3::class.java )
+            startActivity(intent)
+        }
+
+
         showNameBtn.setOnClickListener {
             startActivity(Intent(this@MainActivity, HeroSearchActivity::class.java))
             val editText = findViewById<EditText>(R.id.enterNameEdt)
@@ -66,56 +73,6 @@ class MainActivity : AppCompatActivity() {
                 putExtra("SEARCH_VALUE", message)
             }
             startActivity(intent)
-
-
-//            val search = enterNameEdt.text
-//            if (search.isEmpty() || search.length < 3) {
-//              //  resultTxt.text = getString(R.string.Enter3chars)
-//            } else {
-//                service.getHeroesObserv(apiCredParams.apikey, apiCredParams.hash, search.toString(), apiCredParams.ts)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .unsubscribeOn(Schedulers.io())
-//                    .subscribe({
-//                        val heroes = it.result.heroes
-//                        println(heroes)
-////                        var showString: String? = null
-//                        if (heroes.size > 0) {
-////                            showString = "Welcome " + heroes.get(0).name
-////                            resultTxt.text = showString
-//                            var heroNames: MutableList<String> = ArrayList()
-//
-//                            for(hero in heroes){
-//                                heroNames.add(hero.name)
-//                            }
-//
-//                            heroAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, heroNames)
-//                            hero_list.adapter = heroAdapter
-//                        }
-//                    }, {
-//
-//                    })
-
-
-// FUNKAR BRA MEN OBSERVABLE ÄR SNABBARE
-//                call.clone().enqueue(object : Callback<HeroResponse> {
-//                    override fun onFailure(call: Call<HeroResponse>, t: Throwable) {
-//                        Toast.makeText(applicationContext, "failed", Toast.LENGTH_LONG).show()
-//                    }
-//
-//                    override fun onResponse(call: Call<HeroResponse>, response: Response<HeroResponse>) {
-//                        val body = response.body()
-//                        var result = body?.result
-//                        var heroes = result?.heroes
-//                        println(heroes)
-//                        var showString: String? = null
-//                        if (heroes?.size!! > 0) {
-//                            showString = "Welcome " + result?.heroes?.get(0)?.name
-//                            resultTxt.text = showString
-//                        }
-//                    }
-//                })
-            //      }
         }
 
     }

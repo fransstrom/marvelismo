@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:hint="@string/hint_name"
             android:autofillHints=""
-            app:layout_constraintBottom_toTopOf="@+id/hero_list" android:layout_marginBottom="8dp"/>
+            tools:layout_editor_absoluteY="45dp"/>
     <Button
             android:text="@string/btn_name"
             android:layout_width="179dp"
@@ -27,13 +27,14 @@
             android:background="@color/colorAccent" android:textColor="#FFFFFF" android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/enterNameEdt"
             android:layout_marginStart="8dp" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/hero_list"/>
-    <ListView
-            android:layout_width="387dp"
-            android:layout_height="407dp"
-            android:id="@+id/hero_list"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginTop="110dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            tools:layout_editor_absoluteY="48dp"/>
+    <Button
+            android:text="Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button" android:layout_marginTop="94dp"
+            app:layout_constraintTop_toBottomOf="@+id/enterNameEdt" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="89dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="234dp" android:layout_marginBottom="431dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>
