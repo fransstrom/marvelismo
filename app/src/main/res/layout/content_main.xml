@@ -11,29 +11,20 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="674dp" tools:layout_editor_absoluteY="1dp">
+            android:layout_height="0dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="9dp">
 
-        <Button
-                android:text="@string/heroSearchActivityBtn"
-                android:layout_width="179dp"
-                android:layout_height="54dp"
-                android:id="@+id/heroSearchActivityBtn"
-                android:background="@color/colorAccent" android:textColor="#FFFFFF" android:textStyle="bold"
-                android:layout_marginEnd="111dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.228"
-                android:layout_alignParentEnd="true" android:layout_alignParentStart="true"
-                android:layout_marginStart="121dp"/>
-        <GridLayout android:layout_width="match_parent" android:layout_height="400dp"
-                    android:layout_weight="2"
+        <GridLayout android:layout_width="match_parent"
                     android:columnCount="2"
                     android:rowCount="2"
                     android:alignmentMode="alignMargins"
                     android:padding="14dp"
 
-                    android:layout_alignParentBottom="true" android:layout_marginBottom="0dp"
-                    android:layout_marginTop="212dp" android:layout_below="@+id/heroSearchActivityBtn">
+                    android:layout_alignParentEnd="true" android:layout_marginEnd="0dp"
+                    android:layout_alignParentStart="true" android:layout_marginStart="0dp"
+                    android:layout_height="match_parent" android:layout_marginTop="0dp"
+                    android:layout_alignParentTop="true">
             <android.support.v7.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -42,7 +33,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_rowWeight="1"
-                    app:cardBackgroundColor="@color/colorAccent">
+                    app:cardBackgroundColor="@color/colorAccent" android:id="@+id/heroSearchActivityBtn2">
                 <LinearLayout android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:layout_margin="16dp"
@@ -53,10 +44,10 @@
                     <ImageView android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
                                android:src="@drawable/ic_launcher_foreground"
-                               android:layout_gravity="center_horizontal"/>
+                               android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
 
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:text="Me"
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/Search_heros_btn"
                               android:textSize="18sp"
                               android:textColor="@android:color/white"
                               android:textAlignment="center"/>
@@ -84,11 +75,11 @@
                     <ImageView android:layout_width="wrap_content"
                                android:layout_height="wrap_content"
                                android:src="@drawable/ic_launcher_foreground"
-                               android:layout_gravity="center_horizontal"/>
+                               android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
 
 
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:text="Me"
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/BrowserBtn"
                               android:textSize="18sp"
                               android:textColor="@android:color/white"
                               android:textAlignment="center"/>
@@ -117,8 +108,38 @@
                                android:layout_gravity="center_horizontal"/>
 
 
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                              android:text="Me"
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/searchComicBtn"
+                              android:textSize="18sp"
+                              android:textColor="@android:color/white"
+                              android:textAlignment="center"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_rowWeight="1"
+                    app:cardBackgroundColor="@color/colorAccent">
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_margin="16dp"
+                              android:layout_gravity="center_horizontal|center_vertical"
+                              android:orientation="vertical"
+
+                              android:background="@color/colorAccent">
+                    <ImageView android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_launcher_foreground"
+                               android:layout_gravity="center_horizontal"/>
+
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="@string/browseComicsBtn"
                               android:textSize="18sp"
                               android:textColor="@android:color/white"
                               android:textAlignment="center"/>
@@ -148,7 +169,37 @@
 
                     <TextView android:layout_width="match_parent"
                               android:layout_height="wrap_content"
-                              android:text="Me"
+                              android:text="@string/chatBtn"
+                              android:textSize="18sp"
+                              android:textColor="@android:color/white"
+                              android:textAlignment="center"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_rowWeight="1"
+                    app:cardBackgroundColor="@color/colorAccent">
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_margin="16dp"
+                              android:layout_gravity="center_horizontal|center_vertical"
+                              android:orientation="vertical"
+
+                              android:background="@color/colorAccent">
+                    <ImageView android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_launcher_foreground"
+                               android:layout_gravity="center_horizontal"/>
+
+                    <TextView android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:text="@string/favoritesBtn"
                               android:textSize="18sp"
                               android:textColor="@android:color/white"
                               android:textAlignment="center"/>

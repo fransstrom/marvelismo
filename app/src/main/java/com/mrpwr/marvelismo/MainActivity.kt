@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.lang.StringBuilder
 import android.content.Intent
-import android.widget.EditText
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
-        heroSearchActivityBtn.setOnClickListener {
+        heroSearchActivityBtn2.setOnClickListener {
             val intent = Intent(this, HeroSearchActivity::class.java)
             startActivity(intent)
         }
