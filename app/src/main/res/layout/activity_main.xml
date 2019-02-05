@@ -21,6 +21,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <!-- För att hämta info från content_main.xml -->
     <include layout="@layout/content_main"/>
 
 </android.support.design.widget.CoordinatorLayout>

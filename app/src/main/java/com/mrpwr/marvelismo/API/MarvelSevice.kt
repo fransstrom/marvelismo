@@ -35,6 +35,18 @@ interface MarvelSevice {
     ): Observable<HeroResponse>
 
 
+
+
+
+    @GET("/v1/public/comics")
+    fun getComicsObserv(
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("titleStartsWith") nameStartsWith: String,
+        @Query("ts")ts:String
+    ): Observable<ComicResponse>
+
+  
     @GET("/v1/public/characters/{characterId}")
     fun getHero(
         @Path("characterId") characterId: String,
@@ -42,5 +54,6 @@ interface MarvelSevice {
         @Query("hash") hash: String,
         @Query("ts")ts:String
     ): Observable<HeroResponse>
+
 
 }

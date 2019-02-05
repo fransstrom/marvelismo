@@ -21,7 +21,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
-        heroSearchActivityBtn2.setOnClickListener {
+
+
+        heroSearchActivityBtn.setOnClickListener {
+
             val intent = Intent(this, HeroSearchActivity::class.java)
             startActivity(intent)
         }

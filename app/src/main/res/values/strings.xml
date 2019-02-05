@@ -6,6 +6,9 @@
     <string name="btn_name">Show name</string>
     <string name="Enter3chars">Enter atleast 3 characters</string>
     <string name="enterName">Enter the name</string>
+
+    <string name="title_activity_comic_search">ComicSearchActivity</string>
+
     <string name="enter_hero_name">Search hero</string>
     <string name="search">Go</string>
     <string name="title_activity_hero_view">HeroViewActivity</string>
@@ -18,4 +21,5 @@
     <string name="browseComicsBtn">Browse Comics</string>
     <string name="chatBtn">Friends</string>
     <string name="favoritesBtn">Favorites</string>
+
 </resources>

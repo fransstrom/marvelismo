@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             tools:background="@android:color/darker_gray">
+
+    <android.support.v7.widget.CardView
+            android:layout_width="395dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintVertical_bias="0.0">
+        <RelativeLayout
+                android:layout_width="395dp"
+                android:layout_height="120dp">
+                <!--android:padding="12dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" android:id="@+id/comic_row">-->
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star_big_on"
+                android:id="@+id/ComicView"/>
+
+            <!--<TextView-->
+                    <!--android:text="comic title"-->
+                    <!--android:layout_width="232dp"-->
+                    <!--android:layout_height="32dp" android:id="@+id/comicTitle"-->
+                    <!--android:layout_marginTop="10dp" android:layout_marginLeft="150dp"/>-->
+
+            <TextView
+
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:id="@+id/comicTitle"
+                    android:text="Text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/ComicView"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/ComicView" android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp" android:layout_marginTop="5dp"
+                    android:layout_alignParentTop="true" android:layout_marginEnd="0dp"/>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/comicId"
+                      android:text="id"
+                      android:layout_below="@+id/comicTitle"
+                      android:layout_toRightOf="@id/picView" android:layout_toEndOf="@+id/ComicView"
+                      android:layout_marginStart="12dp"
+                      android:layout_marginTop="5dp" android:layout_marginLeft="12dp"/>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

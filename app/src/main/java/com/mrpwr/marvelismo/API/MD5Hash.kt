@@ -7,8 +7,8 @@ import java.security.MessageDigest
 class MD5Hash {
 
     val tsLong = System.currentTimeMillis() / 1000
-    val apikey = "4db67bfff45e58c17272df497a51e64c"
-    val pk = "5c5c815296d354c9d057bb4b3ae5d12d07653d5d"
+    val apikey = "7b286f79dfd7a9a6b70be4fbfaa3740e"
+    val pk = "e702d69c0be04abb7dfd87d58b6ad81ece44e25f"
     val ts = tsLong.toString()
     val toHash: String = ts + pk + apikey
 
