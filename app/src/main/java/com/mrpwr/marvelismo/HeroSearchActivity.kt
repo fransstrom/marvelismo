@@ -12,7 +12,6 @@ import android.widget.Toast
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
 import com.mrpwr.marvelismo.data.HeroListAdapter
-import com.mrpwr.marvelismo.ui.herosearch.HeroSearchFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.hero_search_activity.*
@@ -30,11 +29,11 @@ class HeroSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hero_search_activity)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, HeroSearchFragment.newInstance())
-                .commitNow()
-        }
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, HeroSearchFragment.newInstance())
+//                .commitNow()
+//        }
 
 
         heroSearchProgressBar.visibility= View.INVISIBLE
@@ -68,7 +67,7 @@ class HeroSearchActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
+        heroSearchView.isFocusable=false
     }
 
 
@@ -98,9 +97,12 @@ class HeroSearchActivity : AppCompatActivity() {
                     recyclerView.adapter = adapter
                     adapter!!.notifyDataSetChanged()
                     Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
-                    heroSearchProgressBar.visibility= View.INVISIBLE
+                }else{
+                    Toast.makeText(this,  "No heroes found", Toast.LENGTH_LONG).show()
+
                 }
 
+                    heroSearchProgressBar.visibility= View.INVISIBLE
 
             }, {
 
