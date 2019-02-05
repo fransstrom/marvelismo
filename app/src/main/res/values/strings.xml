@@ -14,5 +14,12 @@
     <string name="title_activity_hero_view">HeroViewActivity</string>
     <string name="heroSearchViewHint">Search hero</string>
     <string name="heroSearchActivityBtn">Search hero</string>
+    <string name="me">Me</string>
+    <string name="Search_heros_btn" translatable="false">Search Heroes</string>
+    <string name="BrowserBtn">Browse Heroes</string>
+    <string name="searchComicBtn">Search Comics</string>
+    <string name="browseComicsBtn">Browse Comics</string>
+    <string name="chatBtn">Friends</string>
+    <string name="favoritesBtn">Favorites</string>
 
 </resources>
