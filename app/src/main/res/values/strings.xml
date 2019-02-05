@@ -23,4 +23,6 @@
     <string name="button">Button</string>
     <string name="nextPage"><![CDATA[>]]></string>
     <string name="prevPage"><![CDATA[<]]></string>
+    <string name="see_comics">See comics</string>
+    <string name="wiki">Wiki</string>
 </resources>
