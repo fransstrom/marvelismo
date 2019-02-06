@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         verifyUserIsLoggedIn()
     }
-    
+
     private fun verifyUserIsLoggedIn() {
         val uid = FirebaseAuth.getInstance().uid
         if (uid == null) {
