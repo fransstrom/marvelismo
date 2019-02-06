@@ -2,23 +2,15 @@ package com.mrpwr.marvelismo.data
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import com.mrpwr.marvelismo.API.Hero
-import com.mrpwr.marvelismo.MainActivity
 import com.mrpwr.marvelismo.R
-
-import java.net.URI
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.hero_search_activity.*
-import android.support.v4.content.ContextCompat.startActivity
 import com.mrpwr.marvelismo.HeroViewActivity
 
 
@@ -39,6 +31,7 @@ class HeroListAdapter( val list: ArrayList<Hero>,  val context: Context) :
         holder.bindItem(list[position])
         val url=list[position].thumbnail.path+"."+list[position].thumbnail.extension
         Picasso.get().load(url).resize(250, 250).centerCrop().into(holder.itemView.findViewById(R.id.picView) as ImageView)
+
     }
 
 

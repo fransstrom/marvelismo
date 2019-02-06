@@ -33,6 +33,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ComicSearchActivity3::class.java)
             startActivity(intent)
         }
+
+        browseHerobtn.setOnClickListener {
+            val intent = Intent(this, HeroBrowseActivity::class.java)
+            intent.putExtra("PAGE", 0)
+            startActivity(intent)
+        }
+
+
     }
 
 
