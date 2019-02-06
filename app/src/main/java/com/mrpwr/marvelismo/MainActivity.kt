@@ -10,6 +10,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.lang.StringBuilder
 import android.content.Intent
+import com.google.firebase.auth.FirebaseAuth
+import com.mrpwr.marvelismo.messages.LatestMessagesActivity
+import com.mrpwr.marvelismo.registerlogin.RegisterActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +36,33 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ComicSearchActivity3::class.java)
             startActivity(intent)
         }
+
+        openChatBtn.setOnClickListener{
+            val intent = Intent(this, LatestMessagesActivity::class.java)
+            startActivity(intent)
+        }
+
+        verifyUserIsLoggedIn()
     }
+
+   
+        browseHerobtn.setOnClickListener {
+            val intent = Intent(this, HeroBrowseActivity::class.java)
+            intent.putExtra("PAGE", 0)
+            startActivity(intent)
+        }
+
+
+
+    }
+
+    private fun verifyUserIsLoggedIn() {
+        val uid = FirebaseAuth.getInstance().uid
+        if (uid == null) {
+            val intent = Intent(this, RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -63,7 +92,16 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_signOut -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, RegisterActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+
+
     }
 }

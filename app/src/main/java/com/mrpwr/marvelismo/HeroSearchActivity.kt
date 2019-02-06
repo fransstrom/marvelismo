@@ -29,11 +29,7 @@ class HeroSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hero_search_activity)
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, HeroSearchFragment.newInstance())
-//                .commitNow()
-//        }
+
 
 
         heroSearchProgressBar.visibility= View.INVISIBLE

@@ -14,7 +14,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.activity_hero_view.*
-import kotlinx.android.synthetic.main.content_hero_view.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,7 +47,7 @@ class HeroViewActivity : AppCompatActivity() {
                 val img = hero.thumbnail.path.plus(".").plus(hero.thumbnail.extension)
 
                 if (heroes.size > 0) {
-                    Picasso.get().load(img).resize(550, 550).centerCrop().into(heroViewImg)
+                    Picasso.get().load(img).resize(heroViewImg.width, heroViewImg.width).centerCrop().into(heroViewImg)
                     heroTitle.text = hero.name
                     heroViewDescription.text = hero.description
                     println("FROM HERO VIEWS " + hero.urls)

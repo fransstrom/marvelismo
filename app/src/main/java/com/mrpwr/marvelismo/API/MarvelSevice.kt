@@ -15,16 +15,6 @@ interface MarvelSevice {
 //    fun listRepos(@Path("nameStartsWith") hero: String): Call<List<Hero>>
 
 
-    @GET("/v1/public/characters")
-    fun getHeroes(
-        @Query("apikey") apikey: String,
-        @Query("hash") hash: String,
-        @Query("nameStartsWith") nameStartsWith: String,
-        @Query("ts")ts:String
-    ): Call<HeroResponse>
-
-
-
 
     @GET("/v1/public/characters")
     fun getHeroesObserv(
@@ -33,9 +23,6 @@ interface MarvelSevice {
         @Query("nameStartsWith") nameStartsWith: String,
         @Query("ts")ts:String
     ): Observable<HeroResponse>
-
-
-
 
 
     @GET("/v1/public/comics")
@@ -54,6 +41,17 @@ interface MarvelSevice {
         @Query("hash") hash: String,
         @Query("ts")ts:String
     ): Observable<HeroResponse>
+
+
+    @GET("/v1/public/characters")
+    fun getHeroes(
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts")ts:String,
+        @Query("offset")offset:Int,
+        @Query("limit")limit:Int
+    ): Observable<HeroResponse>
+
 
 
 }
