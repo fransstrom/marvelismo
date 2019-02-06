@@ -45,6 +45,17 @@ class MainActivity : AppCompatActivity() {
         verifyUserIsLoggedIn()
     }
 
+   
+        browseHerobtn.setOnClickListener {
+            val intent = Intent(this, HeroBrowseActivity::class.java)
+            intent.putExtra("PAGE", 0)
+            startActivity(intent)
+        }
+
+
+
+    }
+
     private fun verifyUserIsLoggedIn() {
         val uid = FirebaseAuth.getInstance().uid
         if (uid == null) {
@@ -52,7 +63,6 @@ class MainActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
-    }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
