@@ -26,7 +26,7 @@ class HeroViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_hero_view)
         setSupportActionBar(toolbar)
 
-
+        heroViewProgressBar.visibility = View.VISIBLE
         val message: String = intent.getStringExtra("HERO_ID")
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
@@ -51,14 +51,20 @@ class HeroViewActivity : AppCompatActivity() {
                     heroTitle.text = hero.name
                     heroViewDescription.text = hero.description
                     println("FROM HERO VIEWS " + hero.urls)
-
+                    heroViewProgressBar.visibility = View.INVISIBLE
 
                     val wikiUrl: String
                     val wikiObj: HeroUrl? = hero.urls.find { e -> e.type == "wiki" }
                     wikiUrl = wikiObj?.url.toString()
                     val wikiWebIntent: Intent = Intent(this, HeroWikiActivity::class.java)
+                    val comicsIntent: Intent = Intent(this, HeroComicsActivity::class.java)
 
-                    println("Wikiobj from herovie " + (wikiUrl))
+                    comicsIntent.putExtra("HERO_ID", hero.id.toString())
+                    println("HEROID from herovie " + (hero.id.toString()))
+
+                    heroViewComicBtn.setOnClickListener {
+                        startActivity(comicsIntent)
+                    }
 
                     if (!(wikiUrl === "null")) {
                         wikiWebIntent.putExtra("WIKI_URL", wikiUrl)

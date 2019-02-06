@@ -85,7 +85,6 @@ class HeroSearchActivity : AppCompatActivity() {
             .unsubscribeOn(Schedulers.io())
             .subscribe({
                 val heroes = it.result.heroes
-
                 if (heroes.size > 0) {
                     layoutManager = LinearLayoutManager(this)
                     adapter = HeroListAdapter(heroes, this)
@@ -95,11 +94,8 @@ class HeroSearchActivity : AppCompatActivity() {
                     Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
                 }else{
                     Toast.makeText(this,  "No heroes found", Toast.LENGTH_LONG).show()
-
                 }
-
                     heroSearchProgressBar.visibility= View.INVISIBLE
-
             }, {
 
             })

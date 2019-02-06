@@ -54,4 +54,25 @@ interface MarvelSevice {
 
 
 
+    @GET("/v1/public/characters/{characterId}/comics")
+    fun getHeroComicsByYear(
+        @Path("characterId") characterId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts")ts:String,
+        @Query("limit")limit:Int,
+        @Query("startYear")startYear:String
+    ): Observable<ComicResponse>
+
+
+    @GET("/v1/public/characters/{characterId}/comics")
+    fun getHeroComics(
+        @Path("characterId") characterId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts")ts:String,
+        @Query("limit")limit:Int
+    ): Observable<ComicResponse>
+
+
 }
