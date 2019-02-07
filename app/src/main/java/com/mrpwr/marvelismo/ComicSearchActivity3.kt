@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
 import com.mrpwr.marvelismo.data.ComicListAdapter
-import com.mrpwr.marvelismo.data.HeroListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.hero_search_activity.*
@@ -21,7 +20,7 @@ class ComicSearchActivity3 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_comic_search3)
+        setContentView(R.layout.comic_search_activity3)
 
 
         val retroFit = Retrofit.Builder()
