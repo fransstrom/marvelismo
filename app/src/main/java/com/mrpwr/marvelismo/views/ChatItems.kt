@@ -14,7 +14,7 @@ import java.util.*
 class ChatFromItem(val text: String, val timestamp: Long, val user: User): Item<ViewHolder>() {
   override fun bind(viewHolder: ViewHolder, position: Int) {
     val sdf = SimpleDateFormat("HH:mm")
-    val resultdate = Date((timestamp*1000)+3600000)
+    val resultdate = Date((timestamp*1000))
 
     viewHolder.itemView.textview_from_row.text = text
     viewHolder.itemView.timeview_from_row.text = sdf.format(resultdate)
@@ -32,7 +32,7 @@ class ChatFromItem(val text: String, val timestamp: Long, val user: User): Item<
 class ChatToItem(val text: String, val timestamp: Long, val user: User): Item<ViewHolder>() {
   override fun bind(viewHolder: ViewHolder, position: Int) {
     val sdf = SimpleDateFormat("HH:mm")
-    val resultdate = Date((timestamp*1000)+3600000)
+    val resultdate = Date((timestamp*1000))
 
     viewHolder.itemView.textview_to_row.text = text
     viewHolder.itemView.timeview_to_row.text = sdf.format(resultdate)
