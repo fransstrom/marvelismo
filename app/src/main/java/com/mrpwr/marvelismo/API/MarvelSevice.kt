@@ -61,7 +61,11 @@ interface MarvelSevice {
         @Query("hash") hash: String,
         @Query("ts")ts:String,
         @Query("limit")limit:Int,
-        @Query("startYear")startYear:String
+        @Query("startYear")startYear:String,
+        @Query("format") format:String?="comic",
+        @Query("formatType") formatType:String?="comic",
+        @Query("noVariants") noVariants:Boolean?=true,
+        @Query("orderBy") orderBy:String?="issueNumber"
     ): Observable<ComicResponse>
 
 
@@ -71,7 +75,11 @@ interface MarvelSevice {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("ts")ts:String,
-        @Query("limit")limit:Int
+        @Query("limit")limit:Int,
+        @Query("format") format:String?="comic",
+        @Query("formatType") formatType:String?="comic",
+        @Query("noVariants") noVariants:Boolean?=true,
+        @Query("orderBy") orderBy:String?="issueNumber"
     ): Observable<ComicResponse>
 
 

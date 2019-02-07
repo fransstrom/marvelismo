@@ -21,8 +21,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import android.widget.AdapterView
-
-
+import android.widget.Toast
 
 
 class HeroComicsActivity : AppCompatActivity() {
@@ -49,15 +48,14 @@ class HeroComicsActivity : AppCompatActivity() {
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
         var apiCredParams = MD5Hash()
 
+        heroComicsProgressBar.visibility=View.INVISIBLE
 
         heroComics(service, heroId, apiCredParams)
+
 
         searchYear.setOnClickListener {
             heroComicsByYear(service, heroId, apiCredParams,spinYear.selectedItem.toString())
         }
-
-
-
 
 //        yearspin?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 //            override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -72,6 +70,7 @@ class HeroComicsActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun heroComicsByYear(service: MarvelSevice, heroId: String, apiCredParams: MD5Hash, year: String) {
+        heroComicsProgressBar.visibility=View.VISIBLE
         service.getHeroComicsByYear(heroId, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts, 100, year)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -86,7 +85,11 @@ class HeroComicsActivity : AppCompatActivity() {
                     recyclerHeroComicsView.layoutManager = layoutManager
                     recyclerHeroComicsView.adapter = adapter
                     adapter!!.notifyDataSetChanged()
+                    Toast.makeText(this,  comics.size.toString() + "comics found", Toast.LENGTH_LONG).show()
+                }else{
+                    Toast.makeText(this,  "No comics found", Toast.LENGTH_LONG).show()
                 }
+                    heroComicsProgressBar.visibility=View.INVISIBLE
             }, {
             })
     }
@@ -94,6 +97,7 @@ class HeroComicsActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun heroComics(service: MarvelSevice, heroId: String, apiCredParams: MD5Hash) {
+        heroComicsProgressBar.visibility=View.VISIBLE
         service.getHeroComics(heroId, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts, 100)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -108,7 +112,11 @@ class HeroComicsActivity : AppCompatActivity() {
                     recyclerHeroComicsView.layoutManager = layoutManager
                     recyclerHeroComicsView.adapter = adapter
                     adapter!!.notifyDataSetChanged()
+                    Toast.makeText(this,  comics.size.toString() + "comics found", Toast.LENGTH_LONG).show()
+                }else{
+                    Toast.makeText(this,  "No comics found", Toast.LENGTH_LONG).show()
                 }
+                    heroComicsProgressBar.visibility=View.INVISIBLE
             }, {
             })
     }
