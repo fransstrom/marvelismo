@@ -21,8 +21,12 @@
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".HeroSearchActivity"
-            android:label="@string/searchHeroLabel"
-            android:theme="@style/AppTheme">
+                  android:label="@string/searchHeroLabel"
+                  android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".ComicViewActivity3"
+
+                  android:theme="@style/AppTheme">
         </activity>
         <activity
                 android:name=".HeroViewActivity"
@@ -50,12 +54,12 @@
         <activity android:name=".messages.NewMessageActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".messages.LatestMessagesActivity" />
+                    android:value=".messages.LatestMessagesActivity"/>
         </activity>
         <activity android:name=".messages.ChatLogActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".messages.LatestMessagesActivity" />
+                    android:value=".messages.LatestMessagesActivity"/>
         </activity>
     </application>
 
