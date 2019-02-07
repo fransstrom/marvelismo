@@ -50,9 +50,9 @@
                     android:layout_height="wrap_content" tools:layout_editor_absoluteY="576dp"
                     android:layout_weight="1" android:layout_marginBottom="50dp" android:layout_marginTop="20dp">
                 <Button
-                        android:text="@string/see_comics"
-                        android:layout_width="130dp"
-                        android:layout_height="wrap_content" android:id="@+id/heroViewComicBtn"
+                        android:text="@string/series_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/heroSeriesBtn"
                         style="?android:attr/buttonBarButtonStyle"
                 />
                 <Button

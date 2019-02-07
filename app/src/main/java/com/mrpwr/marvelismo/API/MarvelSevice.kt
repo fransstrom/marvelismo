@@ -15,13 +15,12 @@ interface MarvelSevice {
 //    fun listRepos(@Path("nameStartsWith") hero: String): Call<List<Hero>>
 
 
-
     @GET("/v1/public/characters")
     fun getHeroesObserv(
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("nameStartsWith") nameStartsWith: String,
-        @Query("ts")ts:String
+        @Query("ts") ts: String
     ): Observable<HeroResponse>
 
 
@@ -30,16 +29,16 @@ interface MarvelSevice {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("titleStartsWith") nameStartsWith: String,
-        @Query("ts")ts:String
+        @Query("ts") ts: String
     ): Observable<ComicResponse>
 
-  
+
     @GET("/v1/public/characters/{characterId}")
     fun getHero(
         @Path("characterId") characterId: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("ts")ts:String
+        @Query("ts") ts: String
     ): Observable<HeroResponse>
 
 
@@ -47,11 +46,30 @@ interface MarvelSevice {
     fun getHeroes(
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("ts")ts:String,
-        @Query("offset")offset:Int,
-        @Query("limit")limit:Int
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
     ): Observable<HeroResponse>
 
+
+    @GET("/v1/public/series")
+    fun getSearchedSeries(
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("titleStartsWith") titleStartsWith: String,
+        @Query("ts") ts: String,
+        @Query("limit") limit: Int?=100
+    ): Observable<SeriesResponse>
+
+
+    @GET("/v1/public/characters/{characterId}/series")
+    fun getHeroSeries(
+        @Path("characterId")characterId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String,
+        @Query("limit") limit: Int?=100
+    ): Observable<SeriesResponse>
 
 
 }

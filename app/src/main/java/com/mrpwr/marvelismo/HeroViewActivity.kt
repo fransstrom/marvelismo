@@ -14,7 +14,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.activity_hero_view.*
-import kotlinx.android.synthetic.main.comic_search_activity.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,7 +24,6 @@ class HeroViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_view)
-        setSupportActionBar(toolbar)
 
 
         val message: String = intent.getStringExtra("HERO_ID")
@@ -59,7 +57,16 @@ class HeroViewActivity : AppCompatActivity() {
                     wikiUrl = wikiObj?.url.toString()
                     val wikiWebIntent: Intent = Intent(this, HeroWikiActivity::class.java)
 
+
+                    val heroSeriesIntent: Intent = Intent(this, HeroSeries::class.java)
+                    heroSeriesIntent.putExtra("HERO_ID", hero.id.toString())
+
+
                     println("Wikiobj from herovie " + (wikiUrl))
+
+                    heroSeriesBtn.setOnClickListener {
+                        startActivity(heroSeriesIntent)
+                    }
 
                     if (!(wikiUrl === "null")) {
                         wikiWebIntent.putExtra("WIKI_URL", wikiUrl)

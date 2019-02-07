@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 
         searchComicsBtn.setOnClickListener {
-            val intent = Intent(this, ComicSearchActivity3::class.java)
+            val intent = Intent(this, SerieSearchActivity::class.java)
             startActivity(intent)
         }
 
