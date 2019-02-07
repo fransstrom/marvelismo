@@ -35,7 +35,7 @@ class HeroViewActivity : AppCompatActivity() {
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
         var apiCredParams = MD5Hash()
-
+        heroViewProgressBar.visibility=View.VISIBLE
         service.getHero(message, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -79,9 +79,11 @@ class HeroViewActivity : AppCompatActivity() {
                     }
                 }
 
-
+                heroViewProgressBar.visibility=View.INVISIBLE
             }, {
+                heroViewProgressBar.visibility=View.INVISIBLE
 
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
             })
 
     }

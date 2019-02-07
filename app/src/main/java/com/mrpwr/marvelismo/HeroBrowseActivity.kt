@@ -14,16 +14,23 @@ import com.mrpwr.marvelismo.data.HeroListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_hero_browse.*
+import okhttp3.OkHttpClient
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 class HeroBrowseActivity : FragmentActivity() {
 
     var adapter: HeroListAdapter? = null
     var layoutManager: RecyclerView.LayoutManager? = null
+    val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(20, TimeUnit.SECONDS)
+        .writeTimeout(20, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .build()
 
 
     @SuppressLint("CheckResult")
@@ -36,7 +43,7 @@ class HeroBrowseActivity : FragmentActivity() {
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).client(okHttpClient)
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
@@ -45,23 +52,23 @@ class HeroBrowseActivity : FragmentActivity() {
 
         nextPage.setOnClickListener {
             val intent = Intent(this, HeroBrowseActivity::class.java)
-            intent.putExtra("PAGE", page+1)
+            intent.putExtra("PAGE", page + 1)
             startActivity(intent)
         }
         nextPage.visibility = View.INVISIBLE
-        pageNr.visibility=View.INVISIBLE
-        prevPage.visibility=View.INVISIBLE
-        pageNr.text=(page+1).toString()
+        pageNr.visibility = View.INVISIBLE
+        prevPage.visibility = View.INVISIBLE
+        pageNr.text = (page + 1).toString()
         getHeroPage(service, page, 100)
 
 
     }
 
     @SuppressLint("CheckResult")
-    fun getHeroPage(service: MarvelSevice, offset: Int, limit:Int) {
+    fun getHeroPage(service: MarvelSevice, offset: Int, limit: Int) {
         var apiCredParams = MD5Hash()
 
-        service.getHeroes(apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts, (offset*limit), limit)
+        service.getHeroes(apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts, (offset * limit), limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
@@ -81,8 +88,8 @@ class HeroBrowseActivity : FragmentActivity() {
                 }
                 nextPage.visibility = View.VISIBLE
                 heroSearchProgressBar.visibility = View.INVISIBLE
-                pageNr.visibility=View.VISIBLE
-                prevPage.visibility=View.VISIBLE
+                pageNr.visibility = View.VISIBLE
+                prevPage.visibility = View.VISIBLE
             }, {
 
             })

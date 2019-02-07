@@ -68,7 +68,8 @@ interface MarvelSevice {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("ts") ts: String,
-        @Query("limit") limit: Int?=100
+        @Query("limit") limit: Int?=100,
+        @Query("contains")contains:String="comic"
     ): Observable<SeriesResponse>
 
 

@@ -17,12 +17,21 @@ import kotlinx.android.synthetic.main.activity_serie_search.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.xml.datatype.DatatypeConstants.SECONDS
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
+
 
 class HeroSeries : AppCompatActivity() {
 
     var adapter: SerieListAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
 
+    val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(20, TimeUnit.SECONDS)
+        .writeTimeout(20, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +43,11 @@ class HeroSeries : AppCompatActivity() {
         println("HEROID FROM HEROSERIES " + heroId)
 
 
+
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).client(okHttpClient)
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
