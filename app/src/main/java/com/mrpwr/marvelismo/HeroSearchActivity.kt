@@ -42,7 +42,7 @@ class HeroSearchActivity : AppCompatActivity() {
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
         layoutManager = LinearLayoutManager(this)
-        adapter = HeroListAdapter(heroes!!, this)
+        adapter = HeroListAdapter(heroes, this)
         HeroSearchRecyclerView.layoutManager = layoutManager
         HeroSearchRecyclerView.adapter = adapter
 
@@ -56,14 +56,14 @@ class HeroSearchActivity : AppCompatActivity() {
         searchView.requestFocusFromTouch()
 
         var nameStartWith:String?=null
-        var page:Int=0
+        var page = 0
 
         HeroSearchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView!!.canScrollVertically(1)) {
                     page++
-                    searchHeros(nameStartWith!!,service, page, 20)
+                    searchHeros(nameStartWith!!,service, 20, page)
                 }
             }
         })
@@ -77,7 +77,7 @@ class HeroSearchActivity : AppCompatActivity() {
                 searchView.clearFocus()
                 page=0
 
-                searchHeros(query, service,20,0)
+                searchHeros(query, service,20,page)
                 return true
             }
 
@@ -111,12 +111,12 @@ class HeroSearchActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
-
                 if (it.result.heroes.size > 0) {
 
                     for (hero in it.result.heroes) {
                         heroes.add(hero)
                     }
+
                     adapter!!.notifyDataSetChanged()
 
                     Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
@@ -128,7 +128,7 @@ class HeroSearchActivity : AppCompatActivity() {
 
 
             }, {
-
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
             })
     }
 

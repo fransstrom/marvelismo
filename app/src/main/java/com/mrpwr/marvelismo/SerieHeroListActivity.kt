@@ -7,14 +7,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
+import com.mrpwr.marvelismo.API.Hero
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
 import com.mrpwr.marvelismo.data.HeroListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_hero_series.*
 import kotlinx.android.synthetic.main.activity_serie_hero_list.*
-import kotlinx.android.synthetic.main.hero_search_activity.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,7 +23,7 @@ import java.util.concurrent.TimeUnit
 class SerieHeroListActivity : AppCompatActivity() {
     var adapter: HeroListAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
-
+    var heroes= arrayListOf<Hero>()
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,11 @@ class SerieHeroListActivity : AppCompatActivity() {
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
 
-
+        layoutManager = LinearLayoutManager(this)
+        adapter = HeroListAdapter(heroes, this)
+        serieHeroesRecyclerView.layoutManager = layoutManager
+        serieHeroesRecyclerView.adapter = adapter
+        adapter!!.notifyDataSetChanged()
 
         serieHeroesProgressbar.visibility = View.VISIBLE
         val retroFit = Retrofit.Builder()
@@ -46,29 +49,43 @@ class SerieHeroListActivity : AppCompatActivity() {
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
-        var apiCredParams = MD5Hash()
 
         val serieId = intent.getStringExtra("SERIE_ID")
         val serieTitle = intent.getStringExtra("SERIE_TITLE")
 
 //        serieHeroListTitle.text = "Heroes staring in $serieTitle"
 
-        service.getSerieHeroes(serieId, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts)
+        getHeroes(service, serieId,0,20)
+
+
+        var page:Int=0
+        serieHeroesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView!!.canScrollVertically(1)) {
+                    page++
+                    getHeroes(service,serieId, page, 20)
+                }
+            }
+        })
+    }
+
+    private fun getHeroes(service: MarvelSevice, serieId: String,offset:Int,limit:Int) {
+        var apiCredParams = MD5Hash()
+        service.getSerieHeroes(serieId, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts,offset*limit, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
-                val heroes = it.result.heroes
-                if (heroes.size > 0) {
-                    layoutManager = LinearLayoutManager(this)
-                    adapter = HeroListAdapter(heroes, this)
-                    serieHeroesRecyclerView.layoutManager = layoutManager
-                    serieHeroesRecyclerView.adapter = adapter
+                if (it.result.heroes.size > 0) {
+
+                    for (hero in it.result.heroes) {
+                        heroes.add(hero)
+                    }
                     adapter!!.notifyDataSetChanged()
                     Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this, "No heroes found", Toast.LENGTH_LONG).show()
-
                 }
 
                 serieHeroesProgressbar.visibility = View.INVISIBLE
@@ -77,7 +94,5 @@ class SerieHeroListActivity : AppCompatActivity() {
 
                 Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
             })
-
-
     }
 }
