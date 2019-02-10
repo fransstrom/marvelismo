@@ -47,7 +47,6 @@ class HeroSearchActivity : AppCompatActivity() {
         HeroSearchRecyclerView.layoutManager = layoutManager
         HeroSearchRecyclerView.adapter = adapter
 
-
         heroSearchProgressBar.visibility = View.INVISIBLE
 
 

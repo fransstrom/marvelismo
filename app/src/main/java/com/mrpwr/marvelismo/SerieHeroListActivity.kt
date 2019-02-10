@@ -105,9 +105,7 @@ class SerieHeroListActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "No heroes found", Toast.LENGTH_LONG).show()
                 }
-
                 serieHeroesProgressbar.visibility = View.INVISIBLE
-
             }, {
                 Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
             })
