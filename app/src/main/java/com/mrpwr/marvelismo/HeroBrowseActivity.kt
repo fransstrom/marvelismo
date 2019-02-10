@@ -1,13 +1,13 @@
 package com.mrpwr.marvelismo
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
+import com.mrpwr.marvelismo.API.Hero
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
 import com.mrpwr.marvelismo.data.HeroListAdapter
@@ -32,13 +32,13 @@ class HeroBrowseActivity : FragmentActivity() {
         .readTimeout(30, TimeUnit.SECONDS)
         .build()
 
+    var heroes=arrayListOf<Hero>()
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_browse)
+
 
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
@@ -47,49 +47,51 @@ class HeroBrowseActivity : FragmentActivity() {
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
+        var page: Int = intent.extras.getInt("PAGE")
+        getHeroPage(service, page, 20)
+        layoutManager = LinearLayoutManager(this)
+        adapter = HeroListAdapter(heroes!!, this)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
 
-        val page: Int = intent.extras.getInt("PAGE")
 
-        nextPage.setOnClickListener {
-            val intent = Intent(this, HeroBrowseActivity::class.java)
-            intent.putExtra("PAGE", page + 1)
-            startActivity(intent)
-        }
-        nextPage.visibility = View.INVISIBLE
-        pageNr.visibility = View.INVISIBLE
-        prevPage.visibility = View.INVISIBLE
-        pageNr.text = (page + 1).toString()
-        getHeroPage(service, page, 100)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
 
+                if (!recyclerView!!.canScrollVertically(1)) {
+                    page++
+                    getHeroPage(service, page, 20)
+                }
+            }
+        })
 
     }
 
     @SuppressLint("CheckResult")
     fun getHeroPage(service: MarvelSevice, offset: Int, limit: Int) {
         var apiCredParams = MD5Hash()
-
+        heroBrowseProgressBar.visibility = View.VISIBLE
         service.getHeroes(apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts, (offset * limit), limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
-                val heroes = it.result.heroes
-                if (heroes.size > 0) {
-                    layoutManager = LinearLayoutManager(this)
-                    adapter = HeroListAdapter(heroes, this)
-                    recyclerView.layoutManager = layoutManager
-                    recyclerView.adapter = adapter
+
+                if (it.result.heroes.size>0) {
+
+                    for (hero in it.result.heroes) {
+                        heroes!!.add(hero)
+                    }
                     adapter!!.notifyDataSetChanged()
 
-
-                    Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, heroes!!.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(this, "No heroes found", Toast.LENGTH_LONG).show()
                 }
-                nextPage.visibility = View.VISIBLE
-                heroSearchProgressBar.visibility = View.INVISIBLE
-                pageNr.visibility = View.VISIBLE
-                prevPage.visibility = View.VISIBLE
+
+                heroBrowseProgressBar.visibility = View.INVISIBLE
+
             }, {
 
             })

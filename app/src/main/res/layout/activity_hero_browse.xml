@@ -9,9 +9,11 @@
 
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:orientation="vertical" android:layout_marginTop="8dp"
+                  android:orientation="vertical"
                   app:layout_constraintTop_toTopOf="parent"
-                  android:id="@+id/linearLayout">
+                  android:id="@+id/linearLayout" app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+    >
 
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -23,7 +25,7 @@
                 app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/heroSearchView"
 
-                android:paddingBottom="100dp">
+        >
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
@@ -34,32 +36,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/heroSearchProgressBar"
+            android:id="@+id/heroBrowseProgressBar"
 
     />
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
-            app:layout_constraintBottom_toBottomOf="parent" tools:layout_editor_absoluteX="0dp"
-    >
-        <Button
-                android:text="@string/prevPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/prevPage"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/pageNr" android:layout_weight="1"
-                android:textAlignment="center"/>
-        <Button
-
-                android:text="@string/nextPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/nextPage" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" android:layout_margin="0dp"/>
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

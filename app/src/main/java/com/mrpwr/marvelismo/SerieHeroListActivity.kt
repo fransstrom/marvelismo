@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit
 class SerieHeroListActivity : AppCompatActivity() {
     var adapter: HeroListAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,6 @@ class SerieHeroListActivity : AppCompatActivity() {
             .unsubscribeOn(Schedulers.io())
             .subscribe({
                 val heroes = it.result.heroes
-
                 if (heroes.size > 0) {
                     layoutManager = LinearLayoutManager(this)
                     adapter = HeroListAdapter(heroes, this)

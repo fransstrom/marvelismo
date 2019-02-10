@@ -20,7 +20,9 @@ interface MarvelSevice {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("nameStartsWith") nameStartsWith: String,
-        @Query("ts") ts: String
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
     ): Observable<HeroResponse>
 
 
