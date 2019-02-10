@@ -68,9 +68,27 @@ interface MarvelSevice {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("ts") ts: String,
-        @Query("limit") limit: Int?=100,
+        @Query("limit") limit: Int?=20,
         @Query("contains")contains:String="comic"
     ): Observable<SeriesResponse>
+
+    @GET("/v1/public/series/{seriesId}")
+    fun getSerie(
+        @Path("seriesId")seriesId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String
+    ): Observable<SeriesResponse>
+
+
+    @GET("/v1/public/series/{seriesId}/characters")
+    fun getSerieHeroes(
+        @Path("seriesId")seriesId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String
+    ): Observable<HeroResponse>
+
 
 
 }

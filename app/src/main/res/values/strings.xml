@@ -27,4 +27,8 @@
     <string name="see_comics">See comics</string>
     <string name="wiki">Wiki</string>
     <string name="series_btn">Series</string>
+    <string name="seriesview_comic_btn">Comics</string>
+    <string name="seriesview_details_btn">Details</string>
+    <string name="seriesview_heroes_btn">Heroes</string>
+    <string name="searchSeriesBtn">Search Series</string>
 </resources>

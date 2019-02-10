@@ -12,6 +12,7 @@ import com.mrpwr.marvelismo.API.Hero
 import com.mrpwr.marvelismo.API.Serie
 import com.mrpwr.marvelismo.HeroViewActivity
 import com.mrpwr.marvelismo.R
+import com.mrpwr.marvelismo.SerieViewActivity
 import com.squareup.picasso.Picasso
 
 
@@ -40,15 +41,15 @@ class SerieListAdapter(val list: ArrayList<Serie>, val context: Context) :
         fun bindItem(serie: Serie) {
             val name: TextView = itemView.findViewById(R.id.heroName) as TextView
             val id: TextView = itemView.findViewById(R.id.heroId) as TextView
-
             val context = itemView.context
-            val showHeroIntent = Intent(context, HeroViewActivity::class.java)
+            val showHeroIntent = Intent(context, SerieViewActivity::class.java)
             println(serie.id.toString() + "serie FROM ADAPTER")
-            showHeroIntent.putExtra("SERIE_ID", serie.id.toString())
 
+            showHeroIntent.putExtra("SERIE_ID", serie.id.toString())
             itemView.setOnClickListener {
                 context.startActivity(showHeroIntent)
             }
+
             name.text = serie.title
             id.text = serie.id.toString()
         }

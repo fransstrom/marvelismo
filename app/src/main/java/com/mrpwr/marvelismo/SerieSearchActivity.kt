@@ -97,4 +97,9 @@ class SerieSearchActivity : AppCompatActivity() {
                 Toast.makeText(this,it.message.toString(),Toast.LENGTH_LONG).show()
             })
     }
+
+    override fun onResume() {
+        super.onResume()
+        serieSearchView.isFocusable=false
+    }
 }
