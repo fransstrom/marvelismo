@@ -24,6 +24,9 @@ class SerieHeroListActivity : AppCompatActivity() {
     var adapter: HeroListAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
     var heroes = arrayListOf<Hero>()
+    var listLimit: Int = 0
+    var page = 0
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +61,17 @@ class SerieHeroListActivity : AppCompatActivity() {
         getHeroes(service, serieId, 0, 20)
 
 
-        var page: Int = 0
+
         serieHeroesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView!!.canScrollVertically(1)) {
-                    page++
-                    getHeroes(service, serieId, page, 20)
+                    if (listLimit > heroes.size) {
+                        page++
+                        getHeroes(service, serieId, page, 20)
+                    } else {
+                        println("No more heroes to get")
+                    }
                 }
             }
         })
@@ -72,6 +79,7 @@ class SerieHeroListActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun getHeroes(service: MarvelSevice, serieId: String, offset: Int, limit: Int) {
+        serieHeroesProgressbar.visibility = View.VISIBLE
         var apiCredParams = MD5Hash()
         service.getSerieHeroes(
             serieId,
@@ -86,12 +94,14 @@ class SerieHeroListActivity : AppCompatActivity() {
             .unsubscribeOn(Schedulers.io())
             .subscribe({
                 if (it.result.heroes.size > 0) {
-
+                    listLimit = it.result.total
                     for (hero in it.result.heroes) {
                         heroes.add(hero)
                     }
                     adapter!!.notifyDataSetChanged()
-                    Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    if (page == 0) {
+                        Toast.makeText(this, listLimit.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    }
                 } else {
                     Toast.makeText(this, "No heroes found", Toast.LENGTH_LONG).show()
                 }
@@ -99,7 +109,6 @@ class SerieHeroListActivity : AppCompatActivity() {
                 serieHeroesProgressbar.visibility = View.INVISIBLE
 
             }, {
-
                 Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
             })
     }
