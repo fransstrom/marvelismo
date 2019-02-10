@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 class SerieHeroListActivity : AppCompatActivity() {
     var adapter: HeroListAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
-    var heroes= arrayListOf<Hero>()
+    var heroes = arrayListOf<Hero>()
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,24 +55,32 @@ class SerieHeroListActivity : AppCompatActivity() {
 
 //        serieHeroListTitle.text = "Heroes staring in $serieTitle"
 
-        getHeroes(service, serieId,0,20)
+        getHeroes(service, serieId, 0, 20)
 
 
-        var page:Int=0
+        var page: Int = 0
         serieHeroesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView!!.canScrollVertically(1)) {
                     page++
-                    getHeroes(service,serieId, page, 20)
+                    getHeroes(service, serieId, page, 20)
                 }
             }
         })
     }
 
-    private fun getHeroes(service: MarvelSevice, serieId: String,offset:Int,limit:Int) {
+    @SuppressLint("CheckResult")
+    private fun getHeroes(service: MarvelSevice, serieId: String, offset: Int, limit: Int) {
         var apiCredParams = MD5Hash()
-        service.getSerieHeroes(serieId, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts,offset*limit, limit)
+        service.getSerieHeroes(
+            serieId,
+            apiCredParams.apikey,
+            apiCredParams.hash,
+            apiCredParams.ts,
+            offset * limit,
+            limit
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())

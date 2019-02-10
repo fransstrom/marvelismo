@@ -25,9 +25,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class HeroSearchActivity : AppCompatActivity() {
     var adapter: HeroListAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
-
     var heroes = arrayListOf<Hero>()
 
+    var listLimit: Int = 0
+    var page = 0
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,15 +56,19 @@ class HeroSearchActivity : AppCompatActivity() {
         searchView.isIconified = false
         searchView.requestFocusFromTouch()
 
-        var nameStartWith:String?=null
-        var page = 0
+        var nameStartWith: String? = null
+
 
         HeroSearchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView!!.canScrollVertically(1)) {
-                    page++
-                    searchHeros(nameStartWith!!,service, 20, page)
+                    if (listLimit > heroes.size) {
+                        page++
+                        searchHeros(nameStartWith!!, service, 20, page)
+                    } else {
+                        println("No more heroes to get")
+                    }
                 }
             }
         })
@@ -73,11 +78,10 @@ class HeroSearchActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 //    callSearch(query)
                 heroes.clear()
-                nameStartWith=query
+                nameStartWith = query
                 searchView.clearFocus()
-                page=0
-
-                searchHeros(query, service,20,page)
+                page = 0
+                searchHeros(query, service, 20, page)
                 return true
             }
 
@@ -106,11 +110,20 @@ class HeroSearchActivity : AppCompatActivity() {
         heroSearchProgressBar.visibility = View.VISIBLE
         var apiCredParams = MD5Hash()
 
-        service.getHeroesObserv(apiCredParams.apikey, apiCredParams.hash, query, apiCredParams.ts, offset*limit, limit)
+        service.getHeroesObserv(
+            apiCredParams.apikey,
+            apiCredParams.hash,
+            query,
+            apiCredParams.ts,
+            offset * limit,
+            limit
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
+                listLimit = it.result.total
+                println("LIMIT FROM CALL " + listLimit)
                 if (it.result.heroes.size > 0) {
 
                     for (hero in it.result.heroes) {
@@ -119,7 +132,9 @@ class HeroSearchActivity : AppCompatActivity() {
 
                     adapter!!.notifyDataSetChanged()
 
-                    Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    if (page == 0) {
+                        Toast.makeText(this, listLimit.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    }
                 } else {
                     Toast.makeText(this, "No heroes found", Toast.LENGTH_LONG).show()
                 }
