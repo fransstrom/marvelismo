@@ -25,7 +25,6 @@ class HeroViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_view)
 
-
         val message: String = intent.getStringExtra("HERO_ID")
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
@@ -33,6 +32,7 @@ class HeroViewActivity : AppCompatActivity() {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
+
 
         var apiCredParams = MD5Hash()
         heroViewProgressBar.visibility=View.VISIBLE
