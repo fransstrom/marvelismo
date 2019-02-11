@@ -10,6 +10,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
+import com.mrpwr.marvelismo.API.Serie
 import com.mrpwr.marvelismo.API.SeriesResponse
 import com.mrpwr.marvelismo.data.ComicListAdapter
 import com.mrpwr.marvelismo.data.HeroListAdapter
@@ -27,10 +28,28 @@ class SerieSearchActivity : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null
 
 
+    var page=0
+    var series= arrayListOf<Serie>()
+    var listLimit=0
+    var searchText=""
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_serie_search)
+
+        val retroFit = Retrofit.Builder()
+            .baseUrl("https://gateway.marvel.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+        val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
+
+        layoutManager = LinearLayoutManager(this)
+        adapter = SerieListAdapter(series, this)
+        SerieRecyclerView.layoutManager = layoutManager
+        SerieRecyclerView.adapter = adapter
+
 
         seriesSearchProgressBar.visibility = View.INVISIBLE
         val searchView: SearchView = this.findViewById(R.id.serieSearchView) as SearchView
@@ -42,7 +61,8 @@ class SerieSearchActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 //    callSearch(query)
                 searchView.clearFocus()
-                searchSerie(query)
+                searchText=query
+                searchSerie(searchText,page, 20,service)
                 return true
             }
 
@@ -58,40 +78,46 @@ class SerieSearchActivity : AppCompatActivity() {
             }
         })
 
+        SerieRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView!!.canScrollVertically(1)) {
+                    if (listLimit > series.size) {
+                        page++
+                        searchSerie(searchText, page, 20, service)
+                    } else {
+                        println("No more heroes to get")
+                    }
+                }
+            }
+        })
+
     }
 
     @SuppressLint("CheckResult")
-    private fun searchSerie(titleStartsWith: String) {
+    private fun searchSerie(titleStartsWith: String, offset:Int,limit:Int, service:MarvelSevice) {
         seriesSearchProgressBar.visibility = View.VISIBLE
-        val retroFit = Retrofit.Builder()
-            .baseUrl("https://gateway.marvel.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-        val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
+
         var apiCredParams = MD5Hash()
 
-        service.getSearchedSeries(apiCredParams.apikey, apiCredParams.hash, titleStartsWith, apiCredParams.ts)
+        service.getSearchedSeries(apiCredParams.apikey, apiCredParams.hash, titleStartsWith, apiCredParams.ts,page*offset,limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
+                listLimit=it.resultSeries.total
 
-                var series = it.resultSeries.series
-                if (series.size > 0) {
-                    println(series)
-                    layoutManager = LinearLayoutManager(this)
-                    adapter = SerieListAdapter(series, this)
-                    SerieRecyclerView.layoutManager = layoutManager
-                    SerieRecyclerView.adapter = adapter
+                if (it.resultSeries.series.size > 0) {
+                    for (serie in it.resultSeries.series) {
+                        series.add(serie)
+                    }
                     adapter!!.notifyDataSetChanged()
-                    Toast.makeText(this, series.size.toString() + " series found", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "No series found", Toast.LENGTH_LONG).show()
+                    if (page == 0) {
+                        Toast.makeText(this, listLimit.toString() + " series found", Toast.LENGTH_LONG).show()
+                    }
                 }
-                println(it.resultSeries)
-                seriesSearchProgressBar.visibility = View.INVISIBLE
 
+                seriesSearchProgressBar.visibility = View.INVISIBLE
 
             }, {
                 Toast.makeText(this,it.message.toString(),Toast.LENGTH_LONG).show()

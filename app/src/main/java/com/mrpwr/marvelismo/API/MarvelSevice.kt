@@ -60,7 +60,8 @@ interface MarvelSevice {
         @Query("hash") hash: String,
         @Query("titleStartsWith") titleStartsWith: String,
         @Query("ts") ts: String,
-        @Query("limit") limit: Int? = 100
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
     ): Observable<SeriesResponse>
 
 
@@ -70,7 +71,8 @@ interface MarvelSevice {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("ts") ts: String,
-        @Query("limit") limit: Int? = 20,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int,
         @Query("contains") contains: String = "comic"
     ): Observable<SeriesResponse>
 

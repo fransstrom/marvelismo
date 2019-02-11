@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
+import com.mrpwr.marvelismo.API.Serie
 import com.mrpwr.marvelismo.data.SerieListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -27,21 +28,23 @@ class HeroSeries : AppCompatActivity() {
     var adapter: SerieListAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
 
+    var page = 0
+    var listLimit = 0
+    var series = arrayListOf<Serie>()
+
+
     val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(20, TimeUnit.SECONDS)
         .writeTimeout(20, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .build()
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_series)
 
-        heroSeriesProgressBar.visibility = View.VISIBLE
         val heroId = intent.getStringExtra("HERO_ID")
-
-        println("HEROID FROM HEROSERIES " + heroId)
-
 
 
         val retroFit = Retrofit.Builder()
@@ -51,25 +54,52 @@ class HeroSeries : AppCompatActivity() {
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
-        var apiCredParams = MD5Hash()
 
-        service.getHeroSeries(heroId, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts)
+        layoutManager = LinearLayoutManager(this)
+        adapter = SerieListAdapter(series, this)
+        heroSeriesRecycler.layoutManager = layoutManager
+        heroSeriesRecycler.adapter = adapter
+
+
+        heroSeriesRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView!!.canScrollVertically(1)) {
+                    if (listLimit > series.size) {
+                        page++
+                        getHeroSerieList(service, heroId, page, 20)
+                    } else {
+                        println("No more heroes to get")
+                    }
+                }
+            }
+        })
+
+        getHeroSerieList(service, heroId, page, 20)
+
+    }
+
+    @SuppressLint("CheckResult")
+    private fun getHeroSerieList(service: MarvelSevice, heroId: String, offset: Int, limit: Int) {
+        var apiCredParams = MD5Hash()
+        heroSeriesProgressBar.visibility = View.VISIBLE
+        service.getHeroSeries(heroId, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts, offset * limit, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
-                println("should have results!!!! DASDGHFJHGDSFADsdfghfdgs")
-                var series = it.resultSeries.series
-                if (series.size > 0) {
-                    println(series)
-                    layoutManager = LinearLayoutManager(this)
-                    adapter = SerieListAdapter(series, this)
-                    heroSeriesRecycler.layoutManager = layoutManager
-                    heroSeriesRecycler.adapter = adapter
+                listLimit = it.resultSeries.total
+
+                println("LIMIT FROM HEROSERIES "+listLimit)
+                if (it.resultSeries.series.size > 0) {
+                    for (serie in it.resultSeries.series) {
+                        series.add(serie)
+                    }
                     adapter!!.notifyDataSetChanged()
-                    Toast.makeText(this, series.size.toString() + " series found", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "No series found", Toast.LENGTH_LONG).show()
+
+                    if (page == 0) {
+                        Toast.makeText(this, listLimit.toString() + " series found", Toast.LENGTH_LONG).show()
+                    }
                 }
                 println(it.resultSeries)
                 heroSeriesProgressBar.visibility = View.INVISIBLE
@@ -77,6 +107,5 @@ class HeroSeries : AppCompatActivity() {
             }, {
                 Toast.makeText(this, it.message.toString(), Toast.LENGTH_LONG).show()
             })
-
     }
 }

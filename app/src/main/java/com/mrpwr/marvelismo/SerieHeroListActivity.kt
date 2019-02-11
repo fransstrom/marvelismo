@@ -102,8 +102,6 @@ class SerieHeroListActivity : AppCompatActivity() {
                     if (page == 0) {
                         Toast.makeText(this, listLimit.toString() + " heroes found", Toast.LENGTH_LONG).show()
                     }
-                } else {
-                    Toast.makeText(this, "No heroes found", Toast.LENGTH_LONG).show()
                 }
                 serieHeroesProgressbar.visibility = View.INVISIBLE
             }, {

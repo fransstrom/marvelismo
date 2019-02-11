@@ -75,7 +75,6 @@ class HeroSearchActivity : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                //    callSearch(query)
                 heroes.clear()
                 nameStartWith = query
                 searchView.clearFocus()
@@ -121,25 +120,19 @@ class HeroSearchActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
-                listLimit = it.result.total
-                println("LIMIT FROM CALL " + listLimit)
-                if (it.result.heroes.size > 0) {
 
+                listLimit = it.result.total
+                if (it.result.heroes.size > 0) {
                     for (hero in it.result.heroes) {
                         heroes.add(hero)
                     }
-
                     adapter!!.notifyDataSetChanged()
-
                     if (page == 0) {
                         Toast.makeText(this, listLimit.toString() + " heroes found", Toast.LENGTH_LONG).show()
                     }
-                } else {
-                    Toast.makeText(this, "No heroes found", Toast.LENGTH_LONG).show()
                 }
 
                 heroSearchProgressBar.visibility = View.INVISIBLE
-
 
             }, {
                 Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
