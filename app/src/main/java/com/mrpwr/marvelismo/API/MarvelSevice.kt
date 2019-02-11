@@ -95,5 +95,16 @@ interface MarvelSevice {
         @Query("limit") limit: Int
     ): Observable<HeroResponse>
 
+    @GET("/v1/public/series")
+    fun getAllSeries(
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
+    ): Observable<SeriesResponse>
+
+
+
 
 }

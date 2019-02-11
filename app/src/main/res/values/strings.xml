@@ -31,4 +31,5 @@
     <string name="seriesview_details_btn">Details</string>
     <string name="seriesview_heroes_btn">Heroes</string>
     <string name="searchSeriesBtn">Search Series</string>
+    <string name="brose_series_btn">Browse Series</string>
 </resources>

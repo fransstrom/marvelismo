@@ -48,6 +48,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        browse_seroes_btn.setOnClickListener {
+            startActivity(Intent(this,SerieBrowseActivity::class.java))
+        }
+
+
+
         verifyUserIsLoggedIn()
     }
 
