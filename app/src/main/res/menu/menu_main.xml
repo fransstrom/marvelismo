@@ -3,6 +3,14 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.mrpwr.marvelismo.MainActivity">
 
+    <item android:id="@+id/user_logged_in"
+          android:title=""
+          android:orderInCategory="100"
+          app:showAsAction="always"/>
+    <item android:id="@+id/user_logged_in2"
+          android:title=""
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
     <item android:id="@+id/action_signOut"
           android:title="@string/action_signOut"
           android:orderInCategory="100"
