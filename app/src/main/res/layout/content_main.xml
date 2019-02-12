@@ -9,205 +9,216 @@
         tools:showIn="@layout/activity_main"
         tools:context=".MainActivity">
 
-    <RelativeLayout
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="9dp">
+            android:layout_height="match_parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="623dp" app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="9dp"
+                    android:layout_marginTop="9dp">
 
-        <GridLayout android:layout_width="match_parent"
-                    android:columnCount="2"
-                    android:rowCount="2"
-                    android:alignmentMode="alignMargins"
-                    android:padding="14dp"
+                <GridLayout android:layout_width="match_parent"
+                            android:columnCount="2"
+                            android:rowCount="3"
+                            android:alignmentMode="alignMargins"
+                            android:padding="14dp"
+                            android:numColumns="auto_fit"
+                            android:layout_alignParentEnd="true" android:layout_marginEnd="0dp"
+                            android:layout_alignParentStart="true" android:layout_marginStart="0dp"
+                            android:layout_height="match_parent" android:layout_marginTop="0dp"
+                            android:layout_alignParentTop="true">
+                    <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_rowWeight="1"
+                            app:cardBackgroundColor="@color/menu_btn_color"
+                            app:cardCornerRadius="2dp"
+                            android:id="@+id/heroSearchActivityBtn2"
+                    >
+                        <LinearLayout android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:layout_margin="16dp"
+                                      android:layout_gravity="center_horizontal|center_vertical"
+                                      android:orientation="vertical"
 
-                    android:layout_alignParentEnd="true" android:layout_marginEnd="0dp"
-                    android:layout_alignParentStart="true" android:layout_marginStart="0dp"
-                    android:layout_height="match_parent" android:layout_marginTop="0dp"
-                    android:layout_alignParentTop="true">
-            <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_rowWeight="1"
-                    app:cardBackgroundColor="@color/colorAccent" android:id="@+id/heroSearchActivityBtn2">
-                <LinearLayout android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_margin="16dp"
-                              android:layout_gravity="center_horizontal|center_vertical"
-                              android:orientation="vertical"
+                                      android:background="@android:color/transparent">
+                            <ImageView android:layout_width="100dp"
+                                       android:layout_height="100dp"
+                                       android:src="@drawable/hero_search_icon"
+                                       android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                      android:text="@string/Search_heros_btn"
+                                      android:textSize="14sp"
+                                      android:textColor="@android:color/white"
+                                      android:textAlignment="center" android:padding="5dp"/>
 
-                              android:background="@color/colorAccent">
-                    <ImageView android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/ic_launcher_foreground"
-                               android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
+                        </LinearLayout>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="@string/Search_heros_btn"
-                              android:textSize="18sp"
-                              android:textColor="@android:color/white"
-                              android:textAlignment="center"/>
+                    </android.support.v7.widget.CardView>
 
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_rowWeight="1"
-                    app:cardBackgroundColor="@color/colorAccent" android:id="@+id/browseHerobtn">
-                <LinearLayout android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_margin="16dp"
-                              android:layout_gravity="center_horizontal|center_vertical"
-                              android:orientation="vertical"
-
-                              android:background="@color/colorAccent">
-                    <ImageView android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/ic_launcher_foreground"
-                               android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
-
-
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="@string/BrowserBtn"
-                              android:textSize="18sp"
-                              android:textColor="@android:color/white"
-                              android:textAlignment="center"/>
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_rowWeight="1"
-                    app:cardBackgroundColor="@color/colorAccent" android:id="@+id/searchComicsBtn">
-                <LinearLayout android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_margin="16dp"
-                              android:layout_gravity="center_horizontal|center_vertical"
-                              android:orientation="vertical"
-
-                              android:background="@color/colorAccent">
-                    <ImageView android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/ic_launcher_foreground"
-                               android:layout_gravity="center_horizontal"/>
+                    <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_rowWeight="1"
+                            app:cardBackgroundColor="@color/menu_btn_color" android:id="@+id/browseHerobtn"
+                            app:cardCornerRadius="2dp">
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="16dp"
+                                android:layout_gravity="center_horizontal|center_vertical"
+                                android:orientation="vertical"
+                                android:background="@android:color/transparent">
+                            <ImageView android:layout_width="100dp"
+                                       android:layout_height="100dp"
+                                       android:src="@drawable/hulk_icon"
+                                       android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
 
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="@string/searchSeriesBtn"
-                              android:textSize="18sp"
-                              android:textColor="@android:color/white"
-                              android:textAlignment="center"/>
-                </LinearLayout>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                      android:text="@string/BrowserBtn"
+                                      android:textSize="14sp"
+                                      android:textColor="@android:color/white"
+                                      android:textAlignment="center" android:padding="5dp"/>
+                        </LinearLayout>
 
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_rowWeight="1"
-                    app:cardBackgroundColor="@color/colorAccent" android:id="@+id/browse_seroes_btn">
-                <LinearLayout android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_margin="16dp"
-                              android:layout_gravity="center_horizontal|center_vertical"
-                              android:orientation="vertical"
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_rowWeight="1"
+                            app:cardBackgroundColor="@color/menu_btn_color"
+                            app:cardCornerRadius="2dp"
+                            android:id="@+id/searchComicsBtn">
+                        <LinearLayout android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:layout_margin="16dp"
+                                      android:layout_gravity="center_horizontal|center_vertical"
+                                      android:orientation="vertical"
+                                      android:background="@android:color/transparent">
+                            <ImageView android:layout_width="100dp"
+                                       android:layout_height="100dp"
+                                       android:src="@drawable/wolverine_icon"
+                                       android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
 
-                              android:background="@color/colorAccent">
-                    <ImageView android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/ic_launcher_foreground"
-                               android:layout_gravity="center_horizontal"/>
 
-                    <TextView android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="@string/brose_series_btn"
-                              android:textSize="18sp"
-                              android:textColor="@android:color/white"
-                              android:textAlignment="center"/>
-                </LinearLayout>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                      android:text="@string/searchSeriesBtn"
+                                      android:textSize="14sp"
+                                      android:textColor="@android:color/white"
+                                      android:textAlignment="center" android:padding="5dp"/>
+                        </LinearLayout>
 
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_rowWeight="1"
-                    app:cardBackgroundColor="@color/colorAccent" android:id="@+id/openChatBtn">
-                <LinearLayout android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_margin="16dp"
-                              android:layout_gravity="center_horizontal|center_vertical"
-                              android:orientation="vertical"
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_rowWeight="1"
+                            app:cardBackgroundColor="@color/menu_btn_color"
+                            app:cardCornerRadius="2dp"
+                            android:id="@+id/browse_seroes_btn">
+                        <LinearLayout android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:layout_margin="16dp"
+                                      android:layout_gravity="center_horizontal|center_vertical"
+                                      android:orientation="vertical"
+                                      android:background="@android:color/transparent">
+                            <ImageView android:layout_width="100dp"
+                                       android:layout_height="100dp"
+                                       android:src="@drawable/venom_icon"
+                                       android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
 
-                              android:background="@color/colorAccent">
-                    <ImageView android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/ic_launcher_foreground"
-                               android:layout_gravity="center_horizontal"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                      android:text="@string/brose_series_btn"
+                                      android:textSize="14sp"
+                                      android:textColor="@android:color/white"
+                                      android:textAlignment="center" android:padding="5dp"/>
+                        </LinearLayout>
 
-                    <TextView android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:text="@string/chatBtn"
-                              android:textSize="18sp"
-                              android:textColor="@android:color/white"
-                              android:textAlignment="center"/>
-                </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_rowWeight="1"
+                            app:cardBackgroundColor="@color/menu_btn_color"
+                            app:cardCornerRadius="2dp" android:id="@+id/openChatBtn">
+                        <LinearLayout android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:layout_margin="16dp"
+                                      android:layout_gravity="center_horizontal|center_vertical"
+                                      android:orientation="vertical"
+                                      android:background="@android:color/transparent">
+                            <ImageView android:layout_width="100dp"
+                                       android:layout_height="100dp"
+                                       android:src="@drawable/marvel_heroes_icon"
+                                       android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
 
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_columnWeight="1"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_rowWeight="1"
-                    app:cardBackgroundColor="@color/colorAccent">
-                <LinearLayout android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:layout_margin="16dp"
-                              android:layout_gravity="center_horizontal|center_vertical"
-                              android:orientation="vertical"
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                                      android:text="@string/chatBtn"
+                                      android:textSize="14sp"
+                                      android:textColor="@android:color/white"
+                                      android:textAlignment="center" android:padding="5dp"/>
+                        </LinearLayout>
 
-                              android:background="@color/colorAccent">
-                    <ImageView android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:src="@drawable/ic_launcher_foreground"
-                               android:layout_gravity="center_horizontal"/>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_rowWeight="1"
+                            app:cardBackgroundColor="@color/menu_btn_color"
+                            app:cardCornerRadius="2dp">
+                        <LinearLayout android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:layout_margin="16dp"
+                                      android:layout_gravity="center_horizontal|center_vertical"
+                                      android:orientation="vertical"
+                                      android:background="@android:color/transparent">
+                            <ImageView android:layout_width="100dp"
+                                       android:layout_height="100dp"
+                                       android:src="@drawable/angela_icon"
+                                       android:layout_gravity="center_horizontal" android:contentDescription="TODO"/>
 
-                    <TextView android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:text="@string/favoritesBtn"
-                              android:textSize="18sp"
-                              android:textColor="@android:color/white"
-                              android:textAlignment="center"/>
-                </LinearLayout>
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                                      android:text="@string/favoritesBtn"
+                                      android:textSize="14sp"
+                                      android:textColor="@android:color/white"
+                                      android:textAlignment="center" android:padding="5dp"/>
+                        </LinearLayout>
 
-            </android.support.v7.widget.CardView>
-        </GridLayout>
-    </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+                </GridLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
