@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.SearchView
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
 import com.mrpwr.marvelismo.data.ComicListAdapter
@@ -23,6 +24,37 @@ class ComicSearchActivity3 : AppCompatActivity() {
         setContentView(R.layout.comic_search_activity3)
 
 
+
+        val searchView: SearchView = this.findViewById(R.id.comicSearchView) as SearchView
+        searchView.isFocusable = true
+        searchView.isIconified = false
+        searchView.requestFocusFromTouch()
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                //    callSearch(query)
+                searchView.clearFocus()
+                searchComics(query)
+                return true
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                //              if (searchView.isExpanded() && TextUtils.isEmpty(newText)) {
+                //   callSearch(newText)
+                //              }
+                return true
+            }
+
+            fun callSearch(query: String) {
+                //Do searching
+            }
+        })
+
+    }
+
+
+    fun searchComics( query : String ) {
+
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
             .addConverterFactory(GsonConverterFactory.create())
@@ -31,7 +63,7 @@ class ComicSearchActivity3 : AppCompatActivity() {
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
         var apiCredParams = MD5Hash()
 
-        service.getComicsObserv(apiCredParams.apikey, apiCredParams.hash, "a", apiCredParams.ts)
+        service.getComicsObserv(apiCredParams.apikey, apiCredParams.hash, query, apiCredParams.ts)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
@@ -54,6 +86,7 @@ class ComicSearchActivity3 : AppCompatActivity() {
             }, {
 
             })
+
     }
 
 

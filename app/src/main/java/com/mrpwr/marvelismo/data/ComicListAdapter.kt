@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mrpwr.marvelismo.API.Comic
 import com.mrpwr.marvelismo.ComicViewActivity3
-import com.mrpwr.marvelismo.HeroViewActivity
 import com.mrpwr.marvelismo.R
 import com.squareup.picasso.Picasso
 
