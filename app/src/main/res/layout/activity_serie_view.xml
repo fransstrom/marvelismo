@@ -56,11 +56,6 @@
                         style="?android:attr/buttonBarButtonStyle"
                 />
                 <Button
-                        android:text="@string/seriesview_details_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/serieDetailBtn"
-                        style="?android:attr/buttonBarButtonStyle"/>
-                <Button
                         android:text="@string/seriesview_heroes_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/serieHeroesBtn"

@@ -83,6 +83,7 @@ class SerieSearchActivity : AppCompatActivity() {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView!!.canScrollVertically(1)) {
                     if (listLimit > series.size) {
+                        series.clear()
                         page++
                         searchSerie(searchText, page, 20, service)
                     } else {

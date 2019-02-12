@@ -115,5 +115,14 @@ interface MarvelSevice {
 
 
 
-
+    @GET("/v1/public/series/{seriesId}/comics")
+    fun getSerieComics(
+        @Path("seriesId")seriesId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int,
+        @Query("orderBy")orderBy:String ="issueNumber"
+    ): Observable<ComicResponse>
 }

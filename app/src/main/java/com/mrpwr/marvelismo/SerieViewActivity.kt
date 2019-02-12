@@ -98,6 +98,12 @@ class SerieViewActivity : AppCompatActivity() {
                         startActivity(heroListIntent)
                     }
 
+                    serieComicsBtn.setOnClickListener {
+                            startActivity(Intent(this,SerieComicsActivity::class.java).apply {
+                                putExtra("SERIE_ID",serieId)
+                            })
+                    }
+
 
 
                 }
