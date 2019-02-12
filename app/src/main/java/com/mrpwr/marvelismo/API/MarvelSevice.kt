@@ -82,7 +82,8 @@ interface MarvelSevice {
         @Query("ts") ts: String,
         @Query("offset") offset: Int,
         @Query("limit") limit: Int,
-        @Query("contains") contains: String = "comic"
+        @Query("contains") contains: String = "comic",
+        @Query("orderBy")orderBy:String="-startYear"
     ): Observable<SeriesResponse>
 
     @GET("/v1/public/series/{seriesId}")
