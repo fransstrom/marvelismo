@@ -24,8 +24,6 @@ class HeroViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_view)
-        setSupportActionBar(toolbar)
-
 
         val message: String = intent.getStringExtra("HERO_ID")
         val retroFit = Retrofit.Builder()
@@ -35,8 +33,9 @@ class HeroViewActivity : AppCompatActivity() {
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
-        var apiCredParams = MD5Hash()
 
+        var apiCredParams = MD5Hash()
+        heroViewProgressBar.visibility=View.VISIBLE
         service.getHero(message, apiCredParams.apikey, apiCredParams.hash, apiCredParams.ts)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -58,7 +57,16 @@ class HeroViewActivity : AppCompatActivity() {
                     wikiUrl = wikiObj?.url.toString()
                     val wikiWebIntent: Intent = Intent(this, HeroWikiActivity::class.java)
 
+
+                    val heroSeriesIntent: Intent = Intent(this, HeroSeries::class.java)
+                    heroSeriesIntent.putExtra("HERO_ID", hero.id.toString())
+
+
                     println("Wikiobj from herovie " + (wikiUrl))
+
+                    heroSeriesBtn.setOnClickListener {
+                        startActivity(heroSeriesIntent)
+                    }
 
                     if (!(wikiUrl === "null")) {
                         wikiWebIntent.putExtra("WIKI_URL", wikiUrl)
@@ -71,9 +79,11 @@ class HeroViewActivity : AppCompatActivity() {
                     }
                 }
 
-
+                heroViewProgressBar.visibility=View.INVISIBLE
             }, {
+                heroViewProgressBar.visibility=View.INVISIBLE
 
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
             })
 
     }

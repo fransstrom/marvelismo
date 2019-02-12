@@ -15,13 +15,14 @@ interface MarvelSevice {
 //    fun listRepos(@Path("nameStartsWith") hero: String): Call<List<Hero>>
 
 
-
     @GET("/v1/public/characters")
     fun getHeroesObserv(
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("nameStartsWith") nameStartsWith: String,
-        @Query("ts")ts:String
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
     ): Observable<HeroResponse>
 
 
@@ -30,8 +31,9 @@ interface MarvelSevice {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
         @Query("titleStartsWith") nameStartsWith: String,
-        @Query("ts")ts:String
+        @Query("ts") ts: String
     ): Observable<ComicResponse>
+
 
 
     @GET("/v1/public/comics/{comicId}")
@@ -42,13 +44,12 @@ interface MarvelSevice {
         @Query("ts") ts : String
     ): Observable<ComicResponse>
 
-  
     @GET("/v1/public/characters/{characterId}")
     fun getHero(
         @Path("characterId") characterId: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("ts")ts:String
+        @Query("ts") ts: String
     ): Observable<HeroResponse>
 
 
@@ -56,10 +57,62 @@ interface MarvelSevice {
     fun getHeroes(
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("ts")ts:String,
-        @Query("offset")offset:Int,
-        @Query("limit")limit:Int
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
     ): Observable<HeroResponse>
+
+
+    @GET("/v1/public/series")
+    fun getSearchedSeries(
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("titleStartsWith") titleStartsWith: String,
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
+    ): Observable<SeriesResponse>
+
+
+    @GET("/v1/public/characters/{characterId}/series")
+    fun getHeroSeries(
+        @Path("characterId") characterId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int,
+        @Query("contains") contains: String = "comic"
+    ): Observable<SeriesResponse>
+
+    @GET("/v1/public/series/{seriesId}")
+    fun getSerie(
+        @Path("seriesId") seriesId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String
+    ): Observable<SeriesResponse>
+
+
+    @GET("/v1/public/series/{seriesId}/characters")
+    fun getSerieHeroes(
+        @Path("seriesId") seriesId: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
+    ): Observable<HeroResponse>
+
+    @GET("/v1/public/series")
+    fun getAllSeries(
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("ts") ts: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
+    ): Observable<SeriesResponse>
+
 
 
 

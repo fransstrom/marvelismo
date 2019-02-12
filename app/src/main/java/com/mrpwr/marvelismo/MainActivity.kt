@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 
         searchComicsBtn.setOnClickListener {
-            val intent = Intent(this, ComicSearchActivity3::class.java)
+            val intent = Intent(this, SerieSearchActivity::class.java)
             startActivity(intent)
         }
 
@@ -47,6 +47,12 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("PAGE", 0)
             startActivity(intent)
         }
+
+        browse_seroes_btn.setOnClickListener {
+            startActivity(Intent(this,SerieBrowseActivity::class.java))
+        }
+
+
 
         verifyUserIsLoggedIn()
     }

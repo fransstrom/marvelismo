@@ -10,7 +10,8 @@ import com.mrpwr.marvelismo.API.MarvelSevice
 import com.mrpwr.marvelismo.data.ComicListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.hero_search_activity.*
+import kotlinx.android.synthetic.main.activity_hero_browse.*
+import kotlinx.android.synthetic.main.comic_search_activity3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -78,8 +79,8 @@ class ComicSearchActivity3 : AppCompatActivity() {
                     layoutManager= LinearLayoutManager(this)
                     adapter= ComicListAdapter(comics,this)
 
-                    recyclerView.layoutManager=layoutManager
-                    recyclerView.adapter=adapter
+                    recyclerView3.layoutManager=layoutManager
+                    recyclerView3.adapter=adapter
 
                     adapter!!.notifyDataSetChanged()
                 }

@@ -109,7 +109,7 @@
 
 
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="@string/searchComicBtn"
+                              android:text="@string/searchSeriesBtn"
                               android:textSize="18sp"
                               android:textColor="@android:color/white"
                               android:textAlignment="center"/>
@@ -124,7 +124,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_rowWeight="1"
-                    app:cardBackgroundColor="@color/colorAccent">
+                    app:cardBackgroundColor="@color/colorAccent" android:id="@+id/browse_seroes_btn">
                 <LinearLayout android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:layout_margin="16dp"
@@ -139,7 +139,7 @@
 
                     <TextView android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:text="@string/browseComicsBtn"
+                              android:text="@string/brose_series_btn"
                               android:textSize="18sp"
                               android:textColor="@android:color/white"
                               android:textAlignment="center"/>

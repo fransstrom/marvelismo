@@ -5,25 +5,25 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HeroBrowseActivity">
+        tools:context=".SerieBrowseActivity">
 
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:orientation="vertical"
                   app:layout_constraintTop_toTopOf="parent"
-                  android:id="@+id/linearLayout" app:layout_constraintStart_toStartOf="parent"
+                  android:id="@+id/linearLayoutBrowseSeries" app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintEnd_toEndOf="parent"
     >
 
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/recyclerView" app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/recyclerBrowseSeries" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
                 app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/heroSearchView"
+
 
         >
         </android.support.v7.widget.RecyclerView>
@@ -36,7 +36,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/heroBrowseProgressBar"
+            android:id="@+id/serieBrowseProgressBar"
 
     />
 

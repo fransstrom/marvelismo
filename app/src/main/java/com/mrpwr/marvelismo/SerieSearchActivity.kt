@@ -8,32 +8,35 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
-import com.mrpwr.marvelismo.API.Hero
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
+import com.mrpwr.marvelismo.API.Serie
+import com.mrpwr.marvelismo.API.SeriesResponse
+import com.mrpwr.marvelismo.data.ComicListAdapter
 import com.mrpwr.marvelismo.data.HeroListAdapter
+import com.mrpwr.marvelismo.data.SerieListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.internal.operators.flowable.FlowableLimit
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_hero_browse.*
+import kotlinx.android.synthetic.main.activity_serie_search.*
 import kotlinx.android.synthetic.main.hero_search_activity.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-class HeroSearchActivity : AppCompatActivity() {
-    var adapter: HeroListAdapter? = null
+class SerieSearchActivity : AppCompatActivity() {
+    var adapter: SerieListAdapter? = null
     private var layoutManager: RecyclerView.LayoutManager? = null
-    var heroes = arrayListOf<Hero>()
 
-    var listLimit: Int = 0
-    var page = 0
+
+    var page=0
+    var series= arrayListOf<Serie>()
+    var listLimit=0
+    var searchText=""
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.hero_search_activity)
+        setContentView(R.layout.activity_serie_search)
 
         val retroFit = Retrofit.Builder()
             .baseUrl("https://gateway.marvel.com")
@@ -43,43 +46,23 @@ class HeroSearchActivity : AppCompatActivity() {
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
         layoutManager = LinearLayoutManager(this)
-        adapter = HeroListAdapter(heroes, this)
-        HeroSearchRecyclerView.layoutManager = layoutManager
-        HeroSearchRecyclerView.adapter = adapter
-
-        heroSearchProgressBar.visibility = View.INVISIBLE
+        adapter = SerieListAdapter(series, this)
+        SerieRecyclerView.layoutManager = layoutManager
+        SerieRecyclerView.adapter = adapter
 
 
-        val searchView: SearchView = this.findViewById(R.id.heroSearchView) as SearchView
+        seriesSearchProgressBar.visibility = View.INVISIBLE
+        val searchView: SearchView = this.findViewById(R.id.serieSearchView) as SearchView
         searchView.isFocusable = true
         searchView.isIconified = false
         searchView.requestFocusFromTouch()
 
-        var nameStartWith: String? = null
-
-
-        HeroSearchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView!!.canScrollVertically(1)) {
-                    if (listLimit > heroes.size) {
-                        page++
-                        searchHeros(nameStartWith!!, service, 20, page)
-                    } else {
-                        println("No more heroes to get")
-                    }
-                }
-            }
-        })
-
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                heroes.clear()
-                nameStartWith = query
+                //    callSearch(query)
                 searchView.clearFocus()
-                page = 0
-                searchHeros(query, service, 20, page)
+                searchText=query
+                searchSerie(searchText,page, 20,service)
                 return true
             }
 
@@ -94,50 +77,55 @@ class HeroSearchActivity : AppCompatActivity() {
                 //Do searching
             }
         })
+
+        SerieRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView!!.canScrollVertically(1)) {
+                    if (listLimit > series.size) {
+                        page++
+                        searchSerie(searchText, page, 20, service)
+                    } else {
+                        println("No more heroes to get")
+                    }
+                }
+            }
+        })
+
     }
-
-
-    override fun onResume() {
-        super.onResume()
-        heroSearchView.isFocusable = false
-    }
-
 
     @SuppressLint("CheckResult")
-    fun searchHeros(query: String, service: MarvelSevice, limit: Int, offset: Int) {
-        heroSearchProgressBar.visibility = View.VISIBLE
+    private fun searchSerie(titleStartsWith: String, offset:Int,limit:Int, service:MarvelSevice) {
+        seriesSearchProgressBar.visibility = View.VISIBLE
+
         var apiCredParams = MD5Hash()
 
-        service.getHeroesObserv(
-            apiCredParams.apikey,
-            apiCredParams.hash,
-            query,
-            apiCredParams.ts,
-            offset * limit,
-            limit
-        )
+        service.getSearchedSeries(apiCredParams.apikey, apiCredParams.hash, titleStartsWith, apiCredParams.ts,page*offset,limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
+                listLimit=it.resultSeries.total
 
-                listLimit = it.result.total
-                if (it.result.heroes.size > 0) {
-                    for (hero in it.result.heroes) {
-                        heroes.add(hero)
+                if (it.resultSeries.series.size > 0) {
+                    for (serie in it.resultSeries.series) {
+                        series.add(serie)
                     }
                     adapter!!.notifyDataSetChanged()
                     if (page == 0) {
-                        Toast.makeText(this, listLimit.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, listLimit.toString() + " series found", Toast.LENGTH_LONG).show()
                     }
                 }
 
-                heroSearchProgressBar.visibility = View.INVISIBLE
+                seriesSearchProgressBar.visibility = View.INVISIBLE
 
             }, {
-                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this,it.message.toString(),Toast.LENGTH_LONG).show()
             })
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        serieSearchView.isFocusable=false
+    }
 }
