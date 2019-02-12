@@ -11,7 +11,9 @@ import kotlinx.android.synthetic.main.content_main.*
 import java.lang.StringBuilder
 import android.content.Intent
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.mrpwr.marvelismo.messages.LatestMessagesActivity
+import com.mrpwr.marvelismo.models.User
 import com.mrpwr.marvelismo.registerlogin.RegisterActivity
 
 
@@ -64,6 +66,27 @@ class MainActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        if (user != null ) {
+
+            val myRef = FirebaseDatabase.getInstance().getReference("users").child(user.uid)
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val value = dataSnapshot.getValue(User::class.java)
+                    menu.findItem(R.id.user_logged_in).title =value!!.username
+                    menu.findItem(R.id.user_logged_in2).title ="User: " + value!!.username
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+        }
+        return super.onPrepareOptionsMenu(menu)
     }
 
 
