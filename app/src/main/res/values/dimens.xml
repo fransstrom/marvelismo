@@ -3,4 +3,5 @@
     <dimen name="card_text_size">15sp</dimen>
     <dimen name="card_view_btn_text_size">18sp</dimen>
     <dimen name="card_view_title_size">30sp</dimen>
+    <dimen name="comic_serie_title_size">19sp</dimen>
 </resources>
