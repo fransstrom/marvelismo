@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.mrpwr.marvelismo.MainActivity
 import com.mrpwr.marvelismo.R
 import com.mrpwr.marvelismo.models.ChatMessage
 import com.mrpwr.marvelismo.models.User
@@ -133,6 +134,11 @@ class LatestMessagesActivity : AppCompatActivity() {
       R.id.menu_new_message -> {
         val intent = Intent(this, NewMessageActivity::class.java)
         startActivity(intent)
+      }
+      R.id.home_btn -> {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        return true
       }
     }
 
