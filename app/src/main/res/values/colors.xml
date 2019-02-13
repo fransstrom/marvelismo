@@ -5,4 +5,7 @@
     <color name="colorAccent">#341BD8</color>
     <color name="menu_btn_color">#CC090234</color>
     <color name="menu_icon_shadow">#C5150234</color>
+    <color name="marvel_red">#e92021</color>
+    <color name="marvel_black">#202020</color>
+    <color name="card_view_text_color">#FFFFFF</color>
 </resources>

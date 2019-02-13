@@ -7,27 +7,28 @@
                                              tools:background="@android:color/darker_gray">
 
     <android.support.v7.widget.CardView
-            android:layout_width="395dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintVertical_bias="0.0">
+            android:layout_marginStart="8dp" app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
         <RelativeLayout
                 android:padding="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:id="@+id/comic_row">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star_big_on"
-                android:id="@+id/ComicView"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star_big_on"
+                    android:id="@+id/ComicView"/>
 
             <!--<TextView-->
-                    <!--android:text="comic title"-->
-                    <!--android:layout_width="232dp"-->
-                    <!--android:layout_height="32dp" android:id="@+id/comicTitle"-->
-                    <!--android:layout_marginTop="10dp" android:layout_marginLeft="150dp"/>-->
+            <!--android:text="comic title"-->
+            <!--android:layout_width="232dp"-->
+            <!--android:layout_height="32dp" android:id="@+id/comicTitle"-->
+            <!--android:layout_marginTop="10dp" android:layout_marginLeft="150dp"/>-->
 
             <TextView
 
