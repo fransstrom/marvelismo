@@ -34,9 +34,9 @@ class NewMessageActivity : AppCompatActivity() {
   }
 
   private fun fetchUsers() {
-    val signedInUser = FirebaseAuth.getInstance().currentUser;
-    val ref = FirebaseDatabase.getInstance().getReference("/users")
-    ref.addListenerForSingleValueEvent(object: ValueEventListener {
+    val signedInUser = FirebaseAuth.getInstance().currentUser
+    val ref = FirebaseDatabase.getInstance().getReference("/users").orderByChild("online").equalTo(true)
+    ref.addValueEventListener(object: ValueEventListener {
 
       override fun onDataChange(p0: DataSnapshot) {
         val adapter = GroupAdapter<ViewHolder>()
@@ -44,7 +44,7 @@ class NewMessageActivity : AppCompatActivity() {
         p0.children.forEach {
           Log.d("NewMessage", it.toString())
           val user = it.getValue(User::class.java)
-          if (user != null && signedInUser != null &&user.uid!=signedInUser.uid ) {
+          if (user != null && signedInUser != null &&user.uid!=signedInUser.uid) {
             adapter.add(UserItem(user))
           }
         }
