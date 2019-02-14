@@ -10,10 +10,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.mrpwr.marvelismo.API.MD5Hash
 import com.mrpwr.marvelismo.API.MarvelSevice
 import com.mrpwr.marvelismo.API.Serie
 import com.mrpwr.marvelismo.data.SerieListAdapter
+import com.mrpwr.marvelismo.messages.LatestMessagesActivity
+import com.mrpwr.marvelismo.registerlogin.RegisterActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_hero_series.*
@@ -114,14 +118,44 @@ class HeroSeries : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_homebtn, menu)
+        menuInflater.inflate(R.menu.navigation_activities, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.home_btn -> {
-                val intent = Intent(this, MainActivity::class.java)
+            R.id.action_settings -> true
+            R.id.action_signOut -> {
+                FirebaseDatabase.getInstance().getReference("presence").child(FirebaseAuth.getInstance().currentUser!!.uid).removeValue()
+                FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("online").removeValue()
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, RegisterActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_searchHeroes -> {
+                val intent = Intent(this, HeroSearchActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_browseHeroes -> {
+                val intent = Intent(this, HeroBrowseActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_searchSeries -> {
+                val intent = Intent(this, SerieSearchActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_browseSeries -> {
+                val intent = Intent(this, SerieBrowseActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_friends -> {
+                val intent = Intent(this, LatestMessagesActivity::class.java)
                 startActivity(intent)
                 return true
             }

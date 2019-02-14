@@ -9,7 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.mrpwr.marvelismo.MainActivity
+import com.mrpwr.marvelismo.*
 import com.mrpwr.marvelismo.R
 import com.mrpwr.marvelismo.models.ChatMessage
 import com.mrpwr.marvelismo.models.User
@@ -135,13 +135,38 @@ class LatestMessagesActivity : AppCompatActivity() {
         val intent = Intent(this, NewMessageActivity::class.java)
         startActivity(intent)
       }
-      R.id.home_btn -> {
-        val intent = Intent(this, MainActivity::class.java)
+
+      R.id.action_settings -> true
+      R.id.action_signOut -> {
+        FirebaseDatabase.getInstance().getReference("presence").child(FirebaseAuth.getInstance().currentUser!!.uid).removeValue()
+        FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("online").removeValue()
+        FirebaseAuth.getInstance().signOut()
+        val intent = Intent(this, RegisterActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        return true
+      }
+      R.id.action_searchHeroes -> {
+        val intent = Intent(this, HeroSearchActivity::class.java)
+        startActivity(intent)
+        return true
+      }
+      R.id.action_browseHeroes -> {
+        val intent = Intent(this, HeroBrowseActivity::class.java)
+        startActivity(intent)
+        return true
+      }
+      R.id.action_searchSeries -> {
+        val intent = Intent(this, SerieSearchActivity::class.java)
+        startActivity(intent)
+        return true
+      }
+      R.id.action_browseSeries -> {
+        val intent = Intent(this, SerieBrowseActivity::class.java)
         startActivity(intent)
         return true
       }
     }
-
     return super.onOptionsItemSelected(item)
   }
 
