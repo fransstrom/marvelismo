@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.mrpwr.marvelismo.MainActivity
 import com.mrpwr.marvelismo.R
 import com.mrpwr.marvelismo.messages.LatestMessagesActivity
@@ -44,6 +48,23 @@ class LoginActivity: AppCompatActivity() {
 
           val user = FirebaseAuth.getInstance().currentUser;
             if(user != null && user.isEmailVerified) {
+                val amOnline = FirebaseDatabase.getInstance().getReference(".info").child("connected")
+                val userRef = FirebaseDatabase.getInstance().getReference("presence").child(user.uid)
+                val userRef2 = FirebaseDatabase.getInstance().getReference("users").child(user.uid).child("online")
+                amOnline.addValueEventListener(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError) {
+                    }
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val connected = snapshot.getValue(Boolean::class.java) ?: false
+                        if (connected) {
+                            userRef.setValue(true)
+                            userRef.onDisconnect().removeValue()
+                            userRef2.setValue(true)
+                            userRef2.onDisconnect().removeValue()
+                        }
+                    }
+                })
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)

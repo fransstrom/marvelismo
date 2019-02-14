@@ -70,6 +70,25 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+        }else{
+            val amOnline = FirebaseDatabase.getInstance().getReference(".info").child("connected")
+            val userRef = FirebaseDatabase.getInstance().getReference("presence").child(uid)
+            val userRef2 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("online")
+
+            amOnline.addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val connected = snapshot.getValue(Boolean::class.java) ?: false
+                    if (connected) {
+                        userRef.setValue(true)
+                        userRef.onDisconnect().removeValue()
+                        userRef2.setValue(true)
+                        userRef2.onDisconnect().removeValue()
+                    }
+                }
+            })
         }
     }
 
@@ -79,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         if (user != null ) {
 
             val myRef = FirebaseDatabase.getInstance().getReference("users").child(user.uid)
+
             myRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val value = dataSnapshot.getValue(User::class.java)
@@ -125,6 +145,8 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             R.id.action_signOut -> {
+                FirebaseDatabase.getInstance().getReference("presence").child(FirebaseAuth.getInstance().currentUser!!.uid).removeValue()
+                FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth.getInstance().currentUser!!.uid).child("online").removeValue()
                 FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this, RegisterActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
