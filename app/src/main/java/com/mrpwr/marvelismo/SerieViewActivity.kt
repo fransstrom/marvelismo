@@ -27,6 +27,8 @@ import java.util.concurrent.TimeUnit
 
 class SerieViewActivity : AppCompatActivity() {
 
+   lateinit var detailUrl:String
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +102,7 @@ class SerieViewActivity : AppCompatActivity() {
                         startActivity(heroListIntent)
                     }
 
+
                     serieComicsBtn.setOnClickListener {
                             startActivity(Intent(this,SerieComicsActivity::class.java).apply {
                                 putExtra("SERIE_ID",serieId)
@@ -107,6 +110,11 @@ class SerieViewActivity : AppCompatActivity() {
                     }
 
 
+                    serieDetailBtn.setOnClickListener {
+                        startActivity(Intent(this,HeroWikiActivity::class.java).apply {
+                            putExtra("WIKI_URL",url) }
+                        )
+                    }
 
                 }
 

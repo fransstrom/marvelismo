@@ -63,6 +63,8 @@ class SerieSearchActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 //    callSearch(query)
+                series.clear()
+                page=0
                 searchView.clearFocus()
                 searchText=query
                 searchSerie(searchText,page, 20,service)
