@@ -35,7 +35,6 @@ class RegisterActivity : AppCompatActivity() {
     already_have_account_text_view.setOnClickListener {
       Log.d(TAG, "Try to show login activity")
 
-      // launch the login activity somehow
       val intent = Intent(this, LoginActivity::class.java)
       startActivity(intent)
     }
@@ -51,11 +50,11 @@ class RegisterActivity : AppCompatActivity() {
 
   var selectedPhotoUri: Uri? = null
 
+    //Choosing a picture
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
 
     if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
-      // proceed and check what the selected image was....
       Log.d(TAG, "Photo was selected")
 
       selectedPhotoUri = data.data
@@ -65,9 +64,6 @@ class RegisterActivity : AppCompatActivity() {
       selectphoto_imageview_register.setImageBitmap(bitmap)
 
       selectphoto_button_register.alpha = 0f
-
-//      val bitmapDrawable = BitmapDrawable(bitmap)
-//      selectphoto_button_register.setBackgroundDrawable(bitmapDrawable)
     }
   }
 
@@ -82,14 +78,13 @@ class RegisterActivity : AppCompatActivity() {
 
     Log.d(TAG, "Attempting to create user with email: $email")
 
-    // Firebase Authentication to create a user with email and password
     FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
 
-                // else if successful
-                Log.d(TAG, "Successfully created user with uid: ${it.result!!.user.uid}")
+                Log.d(TAG, "(NOT VERIFIED) Successfully created user with uid: ${it.result!!.user.uid}")
 
+                //Sending mail for verification
                 val user = FirebaseAuth.getInstance().currentUser
                 user?.sendEmailVerification()
                         ?.addOnCompleteListener { task ->
@@ -97,7 +92,7 @@ class RegisterActivity : AppCompatActivity() {
                                 Log.d(TAG, "Email sent.")
                             }
                         }
-
+                //Then the picture is uploaded
                 uploadImageToFirebaseStorage()
             }
             .addOnFailureListener{
@@ -107,12 +102,16 @@ class RegisterActivity : AppCompatActivity() {
   }
 
   private fun uploadImageToFirebaseStorage() {
-    if (selectedPhotoUri == null){
-        val defaultProfileImgUrl: String = "https://firebasestorage.googleapis.com/v0/b/marvelismo-1337.appspot.com/o/images%2Fprofilepicture.png?alt=media&token=fe114062-87bb-43f6-8f0b-27f25fcd30a4"
+      //If the user didnt choose any picture they get a default picture
+      val defaultProfileImgUrl: String = "https://firebasestorage.googleapis.com/v0/b/marvelismo-1337.appspot.com/o/images%2Fprofilepicture.png?alt=media&token=fe114062-87bb-43f6-8f0b-27f25fcd30a4"
+
+      if (selectedPhotoUri == null){
+        //Then save the user to the database with the defaultpicture
         saveUserToFirebaseDatabase(defaultProfileImgUrl)
         return
     }
-
+    //otherwise if the user did select a picture
+      //you give it a random UUID and place correctly with the reference under images. With firebase storage
     val filename = UUID.randomUUID().toString()
     val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
 
@@ -122,12 +121,16 @@ class RegisterActivity : AppCompatActivity() {
 
           ref.downloadUrl.addOnSuccessListener {
             Log.d(TAG, "File Location: $it")
-
+            //Then if the picture is uploaded correctly, save the user in the database with their own picture
             saveUserToFirebaseDatabase(it.toString())
           }
         }
         .addOnFailureListener {
           Log.d(TAG, "Failed to upload image to storage: ${it.message}")
+            //If the picture upload didnt work, still save the user with default profile picture
+            //So the user data doesnt get lost if the upload failed.
+            saveUserToFirebaseDatabase(defaultProfileImgUrl)
+
         }
   }
 
@@ -137,22 +140,17 @@ class RegisterActivity : AppCompatActivity() {
 
     val user = User(uid, username_edittext_register.text.toString(), profileImageUrl)
 
+      //Setting the user value
     ref.setValue(user)
         .addOnSuccessListener {
           Log.d(TAG, "Finally we saved the user to Firebase Database")
-
+            //Going to the login activity
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-
-          /*val intent = Intent(this, LatestMessagesActivity::class.java)
-          intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-          startActivity(intent)*/
-
         }
         .addOnFailureListener {
           Log.d(TAG, "Failed to set value to database: ${it.message}")
         }
   }
-
 }

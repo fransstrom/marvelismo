@@ -37,7 +37,6 @@ class ChatToItem(val text: String, val timestamp: Long, val user: User): Item<Vi
     viewHolder.itemView.textview_to_row.text = text
     viewHolder.itemView.timeview_to_row.text = sdf.format(resultdate)
 
-    // load our user image into the star
     val uri = user.profileImageUrl
     val targetImageView = viewHolder.itemView.imageview_chat_to_row
     Picasso.get().load(uri).into(targetImageView)

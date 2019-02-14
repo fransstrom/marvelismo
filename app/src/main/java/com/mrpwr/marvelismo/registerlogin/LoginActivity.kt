@@ -40,17 +40,19 @@ class LoginActivity: AppCompatActivity() {
       return
     }
 
+      //trying to sign in with creds
     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
         .addOnCompleteListener {
           if (!it.isSuccessful) return@addOnCompleteListener
 
           Log.d("Login", "Successfully logged in: ${it.result!!.user.uid}")
-
+            //if the creds are valid for a user. Check if the email is verified
           val user = FirebaseAuth.getInstance().currentUser;
             if(user != null && user.isEmailVerified) {
+                //if verified change online status to true and then go to the Main activity
                 val amOnline = FirebaseDatabase.getInstance().getReference(".info").child("connected")
-                val userRef = FirebaseDatabase.getInstance().getReference("presence").child(user.uid)
-                val userRef2 = FirebaseDatabase.getInstance().getReference("users").child(user.uid).child("online")
+                val userPresenceRef = FirebaseDatabase.getInstance().getReference("presence").child(user.uid)
+                val userRef = FirebaseDatabase.getInstance().getReference("users").child(user.uid).child("online")
                 amOnline.addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
                     }
@@ -58,10 +60,10 @@ class LoginActivity: AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val connected = snapshot.getValue(Boolean::class.java) ?: false
                         if (connected) {
+                            userPresenceRef.setValue(true)
+                            userPresenceRef.onDisconnect().removeValue()
                             userRef.setValue(true)
                             userRef.onDisconnect().removeValue()
-                            userRef2.setValue(true)
-                            userRef2.onDisconnect().removeValue()
                         }
                     }
                 })
@@ -69,6 +71,7 @@ class LoginActivity: AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }else{
+                //Not verified mail
                 Toast.makeText(this, "Email not verified", Toast.LENGTH_SHORT).show()
 
             }
