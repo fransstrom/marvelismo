@@ -39,6 +39,9 @@ class HeroBrowseActivity : AppCompatActivity() {
 
     var heroes=arrayListOf<Hero>()
 
+    var page = 0
+    var listLimit = 0
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +55,6 @@ class HeroBrowseActivity : AppCompatActivity() {
             .build()
         val service: MarvelSevice = retroFit.create(MarvelSevice::class.java)
 
-        var page: Int = intent.extras.getInt("PAGE")
         getHeroPage(service, page, 20)
         layoutManager = LinearLayoutManager(this)
         adapter = HeroListAdapter(heroes, this)
@@ -84,15 +86,16 @@ class HeroBrowseActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(Schedulers.io())
             .subscribe({
-
+                listLimit=it.result.total
                 if (it.result.heroes.size>0) {
 
                     for (hero in it.result.heroes) {
                         heroes.add(hero)
                     }
                     adapter!!.notifyDataSetChanged()
-
-                    Toast.makeText(this, heroes.size.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    if (page == 0) {
+                        Toast.makeText(this, listLimit.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                    }
                 } else {
                     Toast.makeText(this, "No heroes found", Toast.LENGTH_LONG).show()
                 }

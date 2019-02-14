@@ -95,7 +95,7 @@ class SerieComicsActivity : AppCompatActivity() {
                     }
                     adapter!!.notifyDataSetChanged()
                     if (page == 0) {
-                        Toast.makeText(this, listLimit.toString() + " heroes found", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, listLimit.toString() + " comics found", Toast.LENGTH_LONG).show()
                     }
                 }
                 serieComicsProgressbar.visibility = View.INVISIBLE

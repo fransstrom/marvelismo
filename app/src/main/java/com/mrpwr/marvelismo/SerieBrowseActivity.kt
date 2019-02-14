@@ -1,5 +1,6 @@
 package com.mrpwr.marvelismo
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -72,6 +73,7 @@ class SerieBrowseActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("CheckResult")
     private fun getSeriesPage(service: MarvelSevice, offset: Int, limit: Int) {
         serieBrowseProgressBar.visibility = View.VISIBLE
         var apiCredParams = MD5Hash()
