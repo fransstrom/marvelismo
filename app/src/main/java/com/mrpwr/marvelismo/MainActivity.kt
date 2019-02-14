@@ -15,6 +15,11 @@ import com.google.firebase.database.*
 import com.mrpwr.marvelismo.messages.LatestMessagesActivity
 import com.mrpwr.marvelismo.models.User
 import com.mrpwr.marvelismo.registerlogin.RegisterActivity
+import android.view.MotionEvent
+import android.view.View
+import android.view.View.OnTouchListener
+
+
 
 
 class MainActivity : AppCompatActivity() {

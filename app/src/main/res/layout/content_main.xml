@@ -41,7 +41,8 @@
                             android:layout_marginLeft="16dp"
                             android:layout_rowWeight="1"
                             app:cardBackgroundColor="@color/menu_btn_color"
-                            app:cardCornerRadius="2dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="10dp"
                             android:id="@+id/heroSearchActivityBtn2"
                     >
                         <LinearLayout android:layout_width="wrap_content"
@@ -74,7 +75,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_rowWeight="1"
                             app:cardBackgroundColor="@color/menu_btn_color" android:id="@+id/browseHerobtn"
-                            app:cardCornerRadius="2dp">
+                            app:cardCornerRadius="20dp">
                         <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -105,7 +106,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_rowWeight="1"
                             app:cardBackgroundColor="@color/menu_btn_color"
-                            app:cardCornerRadius="2dp"
+                            app:cardCornerRadius="20dp"
                             android:id="@+id/searchComicsBtn">
                         <LinearLayout android:layout_width="wrap_content"
                                       android:layout_height="wrap_content"
@@ -136,7 +137,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_rowWeight="1"
                             app:cardBackgroundColor="@color/menu_btn_color"
-                            app:cardCornerRadius="2dp"
+                            app:cardCornerRadius="20dp"
                             android:id="@+id/browse_seroes_btn">
                         <LinearLayout android:layout_width="wrap_content"
                                       android:layout_height="wrap_content"
@@ -166,7 +167,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_rowWeight="1"
                             app:cardBackgroundColor="@color/menu_btn_color"
-                            app:cardCornerRadius="2dp" android:id="@+id/openChatBtn">
+                            app:cardCornerRadius="20dp" android:id="@+id/openChatBtn">
                         <LinearLayout android:layout_width="wrap_content"
                                       android:layout_height="wrap_content"
                                       android:layout_margin="16dp"
@@ -195,7 +196,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_rowWeight="1"
                             app:cardBackgroundColor="@color/menu_btn_color"
-                            app:cardCornerRadius="2dp">
+                            app:cardCornerRadius="20dp">
                         <LinearLayout android:layout_width="wrap_content"
                                       android:layout_height="wrap_content"
                                       android:layout_margin="16dp"
