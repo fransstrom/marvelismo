@@ -41,7 +41,6 @@ class ChatLogActivity : AppCompatActivity() {
 
     supportActionBar?.title = toUser?.username
 
-//    setupDummyData()
     listenForMessages()
 
     send_button_chat_log.setOnClickListener {
@@ -96,7 +95,6 @@ class ChatLogActivity : AppCompatActivity() {
   }
 
   private fun performSendMessage() {
-    // how do we actually send a message to firebase...
     val text = edittext_chat_log.text.toString()
 
     val fromId = FirebaseAuth.getInstance().uid
@@ -105,7 +103,6 @@ class ChatLogActivity : AppCompatActivity() {
 
     if (fromId == null) return
 
-//    val reference = FirebaseDatabase.getInstance().getReference("/messages").push()
     val reference = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
 
     val toReference = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()

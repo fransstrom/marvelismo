@@ -24,7 +24,7 @@ class NewMessageActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_new_message)
 
-    supportActionBar?.title = "Select User"
+    supportActionBar?.title = "Online Users"
 
     fetchUsers()
   }
@@ -54,7 +54,6 @@ class NewMessageActivity : AppCompatActivity() {
           val userItem = item as UserItem
 
           val intent = Intent(view.context, ChatLogActivity::class.java)
-//          intent.putExtra(USER_KEY,  userItem.user.username)
           intent.putExtra(USER_KEY, userItem.user)
           startActivity(intent)
 
@@ -83,11 +82,3 @@ class UserItem(val user: User): Item<ViewHolder>() {
     return R.layout.user_row_new_message
   }
 }
-
-// this is super tedious
-
-//class CustomAdapter: RecyclerView.Adapter<ViewHolder> {
-//  override fun onBindViewHolder(p0:, p1: Int) {
-//    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//  }
-//}

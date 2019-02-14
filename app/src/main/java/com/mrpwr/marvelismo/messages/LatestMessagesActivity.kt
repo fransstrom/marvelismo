@@ -37,19 +37,15 @@ class LatestMessagesActivity : AppCompatActivity() {
     recyclerview_latest_messages.adapter = adapter
     recyclerview_latest_messages.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
-    // set item click listener on your adapter
     adapter.setOnItemClickListener { item, view ->
       Log.d(TAG, "123")
       val intent = Intent(this, ChatLogActivity::class.java)
-
-      // we are missing the chat partner user
-
+      //add chat partner
       val row = item as LatestMessageRow
       intent.putExtra(NewMessageActivity.USER_KEY, row.chatPartnerUser)
       startActivity(intent)
     }
 
-//    setupDummyRows()
     listenForLatestMessages()
 
     fetchCurrentUser()
@@ -95,14 +91,6 @@ class LatestMessagesActivity : AppCompatActivity() {
   }
 
   val adapter = GroupAdapter<ViewHolder>()
-
-//  private fun setupDummyRows() {
-//
-//
-//    adapter.add(LatestMessageRow())
-//    adapter.add(LatestMessageRow())
-//    adapter.add(LatestMessageRow())
-//  }
 
   private fun fetchCurrentUser() {
     val uid = FirebaseAuth.getInstance().uid
