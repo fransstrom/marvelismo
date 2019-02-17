@@ -4,9 +4,9 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.mrpwr.marvelismo.MainActivity">
 
-    <item android:id="@+id/home_btn"
-          android:title=""
-          android:orderInCategory="100"
-          app:showAsAction="always" android:icon="@drawable/ic_home_black_24dp"/>
+    <!--<item android:id="@+id/home_btn"-->
+          <!--android:title=""-->
+          <!--android:orderInCategory="100"-->
+          <!--app:showAsAction="always" android:icon="@drawable/ic_home_black_24dp"/>-->
 
 </menu>
